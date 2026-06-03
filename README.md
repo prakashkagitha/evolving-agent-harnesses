@@ -96,6 +96,14 @@ The planner then briefed the new specialist ("use space advantage to outmaneuver
 - **Verified Δ = +0.060, 95% CI [+0.020, +0.103]** → admitted.
 - Champion ladder fitness climbed **0.547 → 0.617** (best-so-far).
 
+### See it in action
+
+Same opponent, same starting seed — the *only* difference is the added `combat` specialist. The parent harness (left) loses a head-to-head; the evolved harness (right) wins the board.
+
+<div align="center">
+<img src="assets/before_after.gif" alt="Before vs after the winning mutation: the parent harness loses a head-to-head; the evolved harness with the added combat specialist wins" width="900">
+</div>
+
 ---
 
 ## 5. Results
