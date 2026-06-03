@@ -85,9 +85,15 @@ Fitness is the bot's mean win-rate across four held-out opponents — which give
 
 ---
 
-## 3. It actually ran
+## 3. The whole run — an evolutionary tournament
 
-This isn't a diagram — it's the real Dynamic Workflow executing: ~270+ sub-agents over ~3 hours, **Haiku** doing every harness step and **Sonnet** doing the mutations (visible per-agent in the model column).
+Zooming out from a single harness: the experiment is a **tournament of harnesses**, each one a coding agent. A population is scored on the fixed ladder, survivors are kept, and every challenger must **win a verified duel with its parent** to advance — repeated for four generations until the champion `g03_02` earns its place.
+
+<div align="center">
+<img src="assets/tournament-orchestration.png" alt="The overall run as an evolutionary tournament of harnesses: population, score vs the fixed ladder, select top survivors, breed challengers (Sonnet, 4 lenses), a verified duel against the parent, repeated 4 generations to produce the champion, with the champion-fitness trajectory" width="900">
+</div>
+
+And it isn't only a diagram — here's that loop as a **real Dynamic Workflow** executing: ~270+ sub-agents over ~3 hours, **Haiku** doing every harness step and **Sonnet** doing the mutations (visible per-agent in the model column).
 
 <div align="center">
 <img src="assets/claude_workflow.png" alt="The live Claude Dynamic Workflow running the experiment: phases, agents, models, tokens" width="760">
