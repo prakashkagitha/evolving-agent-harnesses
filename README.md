@@ -177,19 +177,28 @@ docs/workflow_spec.md the full experiment specification
 
 ## 7. Run it yourself
 
-The simulation reuses the official **BattleSnake** rules engine (via [CodeClash](https://github.com/CodeClash-ai/CodeClash), MIT) and runs bots natively over HTTP — no Docker.
+### The BattleSnake environment — two options
+
+The game is the official **BattleSnake** rules engine (BattlesnakeOfficial/rules, packaged by CodeClash, MIT). Pick whichever you prefer:
+
+- **Option A — our pinned native setup (recommended).** The exact engine **source we used is vendored in [`BattleSnake/`](BattleSnake)** ([CodeClash-ai/BattleSnake](https://github.com/CodeClash-ai/BattleSnake) @ `26640435`). Build the binary and our `cc_gepa` layer serves bots over HTTP on dynamic ports — **no Docker**, high parallelism, fast:
+  ```bash
+  bash scripts/build_battlesnake.sh        # requires Go → builds BattleSnake/game/battlesnake
+  ```
+- **Option B — official CodeClash.** Use the upstream arena instead (Docker): clone [CodeClash](https://github.com/CodeClash-ai/CodeClash) / [CodeClash-ai/BattleSnake](https://github.com/CodeClash-ai/BattleSnake) and build its engine. Either point `BIN` in `cc_gepa/sim.py` at the resulting `battlesnake` binary, or run bots through CodeClash's own Docker environment. Game semantics are identical; only the isolation layer differs.
+
+> The only thing not committed is the compiled binary (it's large and platform-specific) — both options build it locally with one command.
+
+### Then
 
 ```bash
-# 1. deps (analysis + figures; the sim core is stdlib only)
+# deps (analysis + figures; the sim core is stdlib only)
 pip install -r requirements.txt
 
-# 2. build the BattleSnake rules engine and place the binary at  BattleSnake/game/battlesnake
-#    (clone github.com/CodeClash-ai/BattleSnake — the official Battlesnake rules — and `go build`)
-
-# 3. token-free end-to-end test of the controller (no model calls)
+# token-free end-to-end test of the controller (no model calls)
 python3 -m cc_decomp._mocktest
 
-# 4. reliable, contention-free recompute of all results from the saved harnesses (token-free)
+# reliable, contention-free recompute of all results from the saved harnesses (token-free)
 python3 -m cc_decomp.reeval --out results --sims-evolve 150 --sims-admit 240 --sims-final 1500
 ```
 
@@ -202,7 +211,7 @@ python3 -m cc_decomp.reeval --out results --sims-evolve 150 --sims-admit 240 --s
 
 ## Credits & license
 
-- **BattleSnake rules engine** — [CodeClash-ai/BattleSnake](https://github.com/CodeClash-ai/BattleSnake) (the official [Battlesnake](https://github.com/BattlesnakeOfficial/rules) rules), used via [CodeClash](https://github.com/CodeClash-ai/CodeClash) (MIT). The arena/HTTP-bot protocol is reused natively (no Docker); game semantics are unchanged.
+- **BattleSnake rules engine** — vendored in [`BattleSnake/`](BattleSnake) from [CodeClash-ai/BattleSnake](https://github.com/CodeClash-ai/BattleSnake) (the official [BattlesnakeOfficial/rules](https://github.com/BattlesnakeOfficial/rules), © Battlesnake Inc., MIT), packaged by [CodeClash](https://github.com/CodeClash-ai/CodeClash). Their `LICENSE` files are retained in the vendored tree. Our addition is a native, no-Docker HTTP sim layer (`cc_gepa/`); game semantics are unchanged.
 - **GEPA** — [*GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning*](https://arxiv.org/abs/2507.19457) (Agrawal et al., 2025) and its implementation [gepa-ai/gepa](https://github.com/gepa-ai/gepa) — the optimization style this builds on (here applied to a multi-agent harness rather than a single prompt).
 - **Claude Dynamic Workflows / Claude Code** — the orchestration substrate that runs the nested harness and the evolutionary loop.
 

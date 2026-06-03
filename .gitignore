@@ -2,8 +2,8 @@ __pycache__/
 *.pyc
 .venv/
 venv/
-# the BattleSnake Go rules engine is a build artifact — build it locally (see README)
-BattleSnake/
+# vendored BattleSnake rules-engine SOURCE is committed; only the built binary is ignored (build it locally)
+BattleSnake/game/battlesnake
 # transient run scratch (created when you execute a run)
 cc_decomp_evo/
 **/frames/
