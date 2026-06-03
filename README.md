@@ -10,6 +10,16 @@
 
 ---
 
+<div align="center">
+
+<img src="assets/before_after.gif" alt="Before vs after the winning mutation — same opponent and seed; the parent harness loses the head-to-head, the evolved harness with the added combat specialist wins" width="900">
+
+<sub><b>Same opponent, same starting seed.</b> The only change is the added <code>combat</code> specialist — the parent harness (left) loses the head-to-head; the evolved harness (right) wins the board.</sub>
+
+</div>
+
+---
+
 ## TL;DR
 
 - **The harness is a nested multi-agent pipeline** — a *planner* fans out parallel *specialist coders*, a *referee* merges their code, and a *verified refine loop* hardens it. This whole pipeline is **one Claude Dynamic Workflow**, and every agent in it is a small model (**Haiku**).
@@ -23,7 +33,7 @@
 
 ## 1. How one bot gets built — Claude Dynamic Workflows
 
-A *harness* doesn't search a population to make a bot. It **decomposes the job** across specialist sub-agents and then hardens the result. One harness run is a nested [Claude Dynamic Workflow](https://docs.claude.com/en/docs/claude-code):
+A *harness* doesn't search a population to make a bot. It **decomposes the job** across specialist sub-agents and then hardens the result. One harness run is a nested [Claude Dynamic Workflow](https://code.claude.com/docs/en/workflows):
 
 <div align="center">
 <img src="assets/multi-agent-harness.png" alt="Nested multi-agent harness: planner to parallel specialists to referee to tester/debugger loop to one bot" width="640">
@@ -96,13 +106,7 @@ The planner then briefed the new specialist ("use space advantage to outmaneuver
 - **Verified Δ = +0.060, 95% CI [+0.020, +0.103]** → admitted.
 - Champion ladder fitness climbed **0.547 → 0.617** (best-so-far).
 
-### See it in action
-
-Same opponent, same starting seed — the *only* difference is the added `combat` specialist. The parent harness (left) loses a head-to-head; the evolved harness (right) wins the board.
-
-<div align="center">
-<img src="assets/before_after.gif" alt="Before vs after the winning mutation: the parent harness loses a head-to-head; the evolved harness with the added combat specialist wins" width="900">
-</div>
+*(The before/after clip at the top of this page is exactly this mutation — same opponent, same seed.)*
 
 ---
 

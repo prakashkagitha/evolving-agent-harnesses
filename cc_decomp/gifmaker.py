@@ -67,7 +67,7 @@ def _round(d, box, r, fill):
     d.rounded_rectangle(box, radius=r, fill=fill)
 
 
-def draw_panel(frame, our_name, label_top, label_sub, result=None):
+def draw_panel(frame, our_name, label_top, label_sub, result=None, badge=None):
     """Draw one board state -> a PANEL_W x PANEL_H image."""
     img = Image.new("RGB", (PANEL_W, PANEL_H), PANEL)
     d = ImageDraw.Draw(img)
@@ -126,6 +126,18 @@ def draw_panel(frame, our_name, label_top, label_sub, result=None):
         od.rounded_rectangle((0, 0, bw, bh), radius=14, outline=col + (255,), width=3)
         img.paste(ov, (bx0, by0), ov)
         _ctext(d, (ox + BOARD // 2, oy + BOARD // 2), txt, _font(26, True), col)
+    # "+combat" pop-in badge (top-right of the board) at the moment it matters
+    if badge:
+        btext, bscale = badge
+        f = _font(int(18 * bscale), True)
+        tw = d.textlength(btext, font=f)
+        bw = int(tw + 30 * bscale); bh = int(36 * bscale)
+        bx1 = ox + BOARD - 10; bx0 = bx1 - bw; by0 = oy + 10
+        ov = Image.new("RGBA", (bw, bh), (0, 0, 0, 0)); od = ImageDraw.Draw(ov)
+        od.rounded_rectangle((0, 0, bw - 1, bh - 1), radius=bh // 2, fill=OURS + (255,))
+        od.rounded_rectangle((0, 0, bw - 1, bh - 1), radius=bh // 2, outline=(255, 255, 255, 230), width=2)
+        img.paste(ov, (bx0, by0), ov)
+        _ctext(d, ((bx0 + bx1) // 2, by0 + bh // 2), btext, f, (255, 255, 255))
     return img
 
 
@@ -134,32 +146,51 @@ def load(path):
     return frames
 
 
-def build(before_path, after_path, our_before, our_after, opp, outdir, step=2, hold=26):
+def _badge_for(t, climax_start):
+    """+combat badge with a quick 'pop' (scale bump) when it first appears, then steady."""
+    if t < climax_start:
+        return None
+    k = t - climax_start
+    sc = 1.22 if k == 0 else (1.10 if k == 1 else 1.0)
+    return ("+ combat", sc)
+
+
+# timing: brisk mid-game, lingering finishes, long hold
+FAST, SLOW, HOLD_MS = 42, 110, 80
+HOLD = 42
+
+
+def build(before_path, after_path, our_before, our_after, opp, outdir, step=2, hold=HOLD):
     fb = load(before_path)[::step]
     fa = load(after_path)[::step]
     lb, la = len(fb), len(fa)
     N = max(lb, la)
     outdir = Path(outdir)
+    a_climax = max(0, la - 16)          # +combat pops in as the win closes
+
+    def slow(t):  # linger on the before-defeat head-to-head AND the after-victory close
+        return (lb - 7 <= t <= lb + 4) or (t >= N - 16)
 
     # ---- side-by-side hero ----
     W = PAD + PANEL_W + GAP + PANEL_W + PAD
     Htot = HEAD_STRIP + PANEL_H + PAD
-    frames = []
-    for t in range(N + hold):
+    frames, durs = [], []
+    for t in range(N):
         canvas = Image.new("RGB", (W, Htot), BG)
         d = ImageDraw.Draw(canvas)
         _ctext(d, (W // 2, 24), "Same opponent, same start — only the harness differs", _font(23, True), INK)
         _ctext(d, (W // 2, 48), "the evolving bot is clay · opponent is grey", _font(14), MUTED)
-        bi = min(t, lb - 1)
-        ai = min(t, la - 1)
+        bi, ai = min(t, lb - 1), min(t, la - 1)
         b_res = ("DEFEAT", REDX) if t >= lb - 1 else None
         a_res = ("VICTORY", GREEN) if t >= la - 1 else None
         pb = draw_panel(fb[bi], our_before, "BEFORE", "space control + food", b_res)
-        pa = draw_panel(fa[ai], our_after, "AFTER", "+ combat specialist", a_res)
+        pa = draw_panel(fa[ai], our_after, "AFTER", "+ combat specialist", a_res, badge=_badge_for(t, a_climax))
         canvas.paste(pb, (PAD, HEAD_STRIP))
         canvas.paste(pa, (PAD + PANEL_W + GAP, HEAD_STRIP))
         frames.append(canvas.convert("P", palette=Image.ADAPTIVE, colors=64))
-    durs = [70] * N + [60] * hold
+        durs.append(SLOW if slow(t) else FAST)
+    durs[lb - 1] = 1300            # linger on the BEFORE head-to-head defeat
+    durs[-1] = 2600                # long hold on the final DEFEAT/VICTORY + combat badge
     frames[0].save(outdir / "before_after.gif", save_all=True, append_images=frames[1:],
                    duration=durs, loop=0, optimize=True, disposal=2)
 
@@ -167,16 +198,19 @@ def build(before_path, after_path, our_before, our_after, opp, outdir, step=2, h
     for tag, fr, our, lab, sub, win in [
         ("before", fb, our_before, "BEFORE", "space control + food", False),
         ("after", fa, our_after, "AFTER", "+ combat specialist", True)]:
-        ims = []
+        ims, ds = [], []
         L = len(fr)
-        for t in range(L + hold):
-            i = min(t, L - 1)
+        clm = max(0, L - 16)
+        for t in range(L):
             res = (("VICTORY", GREEN) if win else ("DEFEAT", REDX)) if t >= L - 1 else None
-            ims.append(draw_panel(fr[i], our, lab, sub, res).convert("P", palette=Image.ADAPTIVE, colors=64))
+            bdg = _badge_for(t, clm) if win else None
+            ims.append(draw_panel(fr[min(t, L - 1)], our, lab, sub, res, badge=bdg).convert("P", palette=Image.ADAPTIVE, colors=64))
+            ds.append(SLOW if t >= L - 14 else FAST)
+        ds[-1] = 2400             # long hold on the final result
         ims[0].save(outdir / f"{tag}.gif", save_all=True, append_images=ims[1:],
-                    duration=[70] * L + [60] * hold, loop=0, optimize=True, disposal=2)
+                    duration=ds, loop=0, optimize=True, disposal=2)
     return {"side_by_side": str(outdir / "before_after.gif"), "before": str(outdir / "before.gif"),
-            "after": str(outdir / "after.gif"), "frames": N}
+            "after": str(outdir / "after.gif"), "frames": N, "hold": hold}
 
 
 if __name__ == "__main__":
