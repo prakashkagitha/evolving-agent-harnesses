@@ -1,0 +1,25 @@
+{
+  "gen": 1,
+  "ids": [
+    "hunter",
+    "duelist",
+    "space_first",
+    "balanced",
+    "forager",
+    "generalist",
+    "g01_02",
+    "g01_03"
+  ],
+  "carried": [
+    "hunter",
+    "duelist",
+    "space_first",
+    "balanced",
+    "forager",
+    "generalist"
+  ],
+  "new_ids": [
+    "g01_02",
+    "g01_03"
+  ]
+}

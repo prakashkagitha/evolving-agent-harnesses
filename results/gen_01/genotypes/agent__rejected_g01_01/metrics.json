@@ -1,0 +1,40 @@
+{
+  "verified_vs_parent": {
+    "parent_id": "duelist",
+    "parent_gen": 0,
+    "child_fit": 0.0,
+    "parent_fit": 0.55,
+    "delta": -0.55,
+    "ci_low": -0.6333333333333333,
+    "ci_high": -0.4583333333333333,
+    "admitted": false,
+    "n_pairs": 120,
+    "per_rung": {
+      "weak": {
+        "child": 0.0,
+        "parent": 0.9
+      },
+      "moderate": {
+        "child": 0.0,
+        "parent": 0.4666666666666667
+      },
+      "strong": {
+        "child": 0.0,
+        "parent": 0.3
+      },
+      "sonnet": {
+        "child": 0.0,
+        "parent": 0.5333333333333333
+      }
+    },
+    "sims": 30,
+    "seed": 0
+  },
+  "id": "_rejected_g01_01",
+  "per_rung_admit": {
+    "weak": 0.0,
+    "moderate": 0.0,
+    "strong": 0.0,
+    "sonnet": 0.0
+  }
+}

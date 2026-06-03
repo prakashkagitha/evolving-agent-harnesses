@@ -1,0 +1,1 @@
+Strategy: win length races. Brief the food specialist to path efficiently to the nearest safe food and keep health comfortable; brief space_control to avoid trapping yourself while foraging. Use a length lead to survive late. Growth-first, space as a guard.

@@ -1,0 +1,1 @@
+Strategy: outlast everyone by playing safe. Brief space_control to strictly avoid dead-ends and keep maximum room; brief hazard to avoid edges/corners and hazard cells that cut escape routes. Take no unnecessary risks; let opponents make the fatal mistakes. Safety is priority.

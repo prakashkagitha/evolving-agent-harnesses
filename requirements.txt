@@ -1,0 +1,6 @@
+# Core simulation uses only the Python standard library.
+# These are for the analysis + figure generation:
+numpy>=1.24
+matplotlib>=3.7
+# optional: render the SVG figures to PNG
+cairosvg>=2.7

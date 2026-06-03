@@ -1,0 +1,13 @@
+{
+  "id": "generalist",
+  "ladder_fitness": 0.16666666666666666,
+  "per_rung": {
+    "weak": 0.2733333333333333,
+    "moderate": 0.1,
+    "strong": 0.04,
+    "sonnet": 0.25333333333333335
+  },
+  "sims": 150,
+  "seed": 0,
+  "reeval": true
+}

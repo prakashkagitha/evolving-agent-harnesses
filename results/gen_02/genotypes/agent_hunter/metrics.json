@@ -1,0 +1,13 @@
+{
+  "id": "hunter",
+  "ladder_fitness": 0.30333333333333334,
+  "per_rung": {
+    "weak": 0.4266666666666667,
+    "moderate": 0.28,
+    "strong": 0.15333333333333332,
+    "sonnet": 0.35333333333333333
+  },
+  "sims": 150,
+  "seed": 0,
+  "reeval": true
+}

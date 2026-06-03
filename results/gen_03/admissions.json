@@ -1,0 +1,68 @@
+{
+  "gen": 3,
+  "offspring": [
+    {
+      "id": "g03_00",
+      "lens": "strategy",
+      "parent_id": "hunter",
+      "delta": -0.025,
+      "ci_low": -0.060442708333333324,
+      "ci_high": 0.010416666666666666,
+      "admitted": false,
+      "child_fit": 0.24479166666666666,
+      "parent_fit": 0.26979166666666665,
+      "changed_components": [
+        "planner_prompt.md"
+      ],
+      "diff": "Replaced one-line combat-first prompt with explicit 4-level priority hierarchy (survival > space-denial > combat > food) plus concrete briefing instructions (length delta, enemy region size, flood-fill count) to address weak win-rate vs strong opponents (0.40) caused by self-trapping during aggressive play."
+    },
+    {
+      "id": "g03_01",
+      "lens": "concept",
+      "parent_id": "duelist",
+      "delta": -0.340625,
+      "ci_low": -0.378125,
+      "ci_high": -0.30416666666666664,
+      "admitted": false,
+      "child_fit": 0.13333333333333333,
+      "parent_fit": 0.4739583333333333,
+      "changed_components": [
+        "planner_prompt.md"
+      ],
+      "diff": "Added trap-avoidance concept: before committing to any aggressive move, verify own flood-fill reachable squares stay above a safe threshold and discard moves that would seal the snake into a pocket, keeping escape routes open while still applying pressure."
+    },
+    {
+      "id": "g03_03",
+      "lens": "robustness",
+      "parent_id": "balanced",
+      "delta": 0.025,
+      "ci_low": -0.008333333333333333,
+      "ci_high": 0.058333333333333334,
+      "admitted": false,
+      "child_fit": 0.4510416666666667,
+      "parent_fit": 0.42604166666666665,
+      "changed_components": [
+        "decomposition.json"
+      ],
+      "diff": "Increased refine_rounds from 2 to 3 to give the planner an extra self-correction pass, targeting the weak win-rate vs strong opponents (0.30)."
+    },
+    {
+      "id": "g03_02",
+      "lens": "decomposition",
+      "parent_id": "space_first",
+      "delta": 0.06041666666666667,
+      "ci_low": 0.019791666666666666,
+      "ci_high": 0.103125,
+      "admitted": true,
+      "child_fit": 0.6145833333333334,
+      "parent_fit": 0.5541666666666667,
+      "changed_components": [
+        "decomposition.json"
+      ],
+      "diff": "Added 'combat' specialist to address low win-rates vs moderate (43%) and strong (39%) rungs where head-to-head collision avoidance/targeting was missing."
+    }
+  ],
+  "n_admitted": 1,
+  "n_offspring": 4,
+  "reeval": true
+}

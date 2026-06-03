@@ -1,0 +1,68 @@
+{
+  "gen": 1,
+  "offspring": [
+    {
+      "id": "g01_00",
+      "lens": "strategy",
+      "parent_id": "hunter",
+      "delta": 0.019791666666666666,
+      "ci_low": -0.017708333333333333,
+      "ci_high": 0.057291666666666664,
+      "admitted": false,
+      "child_fit": 0.28020833333333334,
+      "parent_fit": 0.2604166666666667,
+      "changed_components": [
+        "planner_prompt.md"
+      ],
+      "diff": "Replaced the single-sentence strategy with an explicit three-tier decision hierarchy (survive > dominate space > hunt/eat) plus concrete integration instructions so the planner consistently overrides unsafe head-to-heads and breaks ties via space control rather than defaulting to combat."
+    },
+    {
+      "id": "g01_01",
+      "lens": "concept",
+      "parent_id": "duelist",
+      "delta": -0.19583333333333333,
+      "ci_low": -0.23645833333333333,
+      "ci_high": -0.15625,
+      "admitted": false,
+      "child_fit": 0.28958333333333336,
+      "parent_fit": 0.48541666666666666,
+      "changed_components": [
+        "planner_prompt.md"
+      ],
+      "diff": "Added food-denial concept: when longer, route to intercept opponent food tiles to accelerate health drain without requiring direct collision."
+    },
+    {
+      "id": "g01_02",
+      "lens": "decomposition",
+      "parent_id": "space_first",
+      "delta": -0.11875,
+      "ci_low": -0.16041666666666668,
+      "ci_high": -0.075,
+      "admitted": false,
+      "child_fit": 0.41875,
+      "parent_fit": 0.5375,
+      "changed_components": [
+        "decomposition.json"
+      ],
+      "diff": "Added 'combat' specialist to specialists list to address weak win-rate vs strong opponents (39%)"
+    },
+    {
+      "id": "g01_03",
+      "lens": "robustness",
+      "parent_id": "balanced",
+      "delta": -0.041666666666666664,
+      "ci_low": -0.08541666666666667,
+      "ci_high": 0.0010416666666666667,
+      "admitted": false,
+      "child_fit": 0.40208333333333335,
+      "parent_fit": 0.44375,
+      "changed_components": [
+        "decomposition.json"
+      ],
+      "diff": "Increased refine_rounds from 2 to 3 to give the tester more correction iterations, targeting the weak 0.30 win-rate vs strong opponents."
+    }
+  ],
+  "n_admitted": 0,
+  "n_offspring": 4,
+  "reeval": true
+}

@@ -1,0 +1,1 @@
+Strategy: just don't trap yourself. Brief the single space_control specialist to keep the most reachable open space and veto self-traps. Nothing else.

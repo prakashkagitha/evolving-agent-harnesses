@@ -1,0 +1,68 @@
+{
+  "gen": 4,
+  "offspring": [
+    {
+      "id": "g04_00",
+      "lens": "strategy",
+      "parent_id": "hunter",
+      "delta": 0.05,
+      "ci_low": 0.012473958333333342,
+      "ci_high": 0.0875,
+      "admitted": true,
+      "child_fit": 0.3145833333333333,
+      "parent_fit": 0.26458333333333334,
+      "changed_components": [
+        "planner_prompt.md"
+      ],
+      "diff": "Added conditional length-advantage gate: combat takes priority only when strictly longer; otherwise space_control becomes primary move, with explicit dead-end veto (reachable < 4) to address weak win-rate vs strong opponents."
+    },
+    {
+      "id": "g04_01",
+      "lens": "concept",
+      "parent_id": "duelist",
+      "delta": -0.221875,
+      "ci_low": -0.2625,
+      "ci_high": -0.18333333333333332,
+      "admitted": false,
+      "child_fit": 0.26145833333333335,
+      "parent_fit": 0.48333333333333334,
+      "changed_components": [
+        "planner_prompt.md"
+      ],
+      "diff": "Added food-denial / length-race concept: when longer, intercept food to prevent opponent length-reversal; when shorter, eat first before engaging in head-to-head confrontation."
+    },
+    {
+      "id": "g04_02",
+      "lens": "decomposition",
+      "parent_id": "space_first",
+      "delta": -0.09791666666666667,
+      "ci_low": -0.13958333333333334,
+      "ci_high": -0.05416666666666667,
+      "admitted": false,
+      "child_fit": 0.45,
+      "parent_fit": 0.5479166666666667,
+      "changed_components": [
+        "decomposition.json"
+      ],
+      "diff": "Added 'combat' specialist to improve win-rate vs strong/moderate opponents by avoiding head-on collisions and exploiting size advantages"
+    },
+    {
+      "id": "g04_03",
+      "lens": "robustness",
+      "parent_id": "balanced",
+      "delta": 0.058333333333333334,
+      "ci_low": 0.016666666666666666,
+      "ci_high": 0.1,
+      "admitted": true,
+      "child_fit": 0.48854166666666665,
+      "parent_fit": 0.43020833333333336,
+      "changed_components": [
+        "decomposition.json"
+      ],
+      "diff": "Increased refine_rounds from 2 to 3 to add an extra self-critique pass, targeting the weak strong-rung win-rate (0.30)."
+    }
+  ],
+  "n_admitted": 2,
+  "n_offspring": 4,
+  "reeval": true
+}

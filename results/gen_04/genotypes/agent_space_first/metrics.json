@@ -1,0 +1,13 @@
+{
+  "id": "space_first",
+  "ladder_fitness": 0.5483333333333333,
+  "per_rung": {
+    "weak": 0.76,
+    "moderate": 0.4666666666666667,
+    "strong": 0.47333333333333333,
+    "sonnet": 0.49333333333333335
+  },
+  "sims": 150,
+  "seed": 0,
+  "reeval": true
+}

@@ -1,0 +1,13 @@
+{
+  "id": "survivor",
+  "ladder_fitness": 0.07333333333333333,
+  "per_rung": {
+    "weak": 0.2866666666666667,
+    "moderate": 0.006666666666666667,
+    "strong": 0.0,
+    "sonnet": 0.0
+  },
+  "sims": 150,
+  "seed": 0,
+  "reeval": true
+}

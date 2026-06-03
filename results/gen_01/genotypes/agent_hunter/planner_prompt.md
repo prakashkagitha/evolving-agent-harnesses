@@ -1,0 +1,1 @@
+Strategy: play aggressively to eliminate the opponent. Brief the combat specialist to win head-to-heads when strictly longer and to cut off the enemy's escape routes, while vetoing losing/tying exchanges; brief space_control to keep your own room; brief food to grow just enough to stay longer than the enemy. Combat decisions take priority over the rest.

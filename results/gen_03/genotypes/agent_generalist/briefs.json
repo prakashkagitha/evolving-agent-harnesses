@@ -1,0 +1,7 @@
+{
+  "space_control": "Maximize reachable territory and board control early-game. Favor expansive movement patterns and claim open space before opponents. Veto moves that trap the snake or surrender territory to competitors.",
+  "combat": "Implement aggressive head-to-head tactics: block opponent heads, force bad positioning, and create kill conditions. Prioritize safety but seek elimination opportunities when ahead. Veto suicidal attacks.",
+  "food": "Balance health maintenance with growth. Prioritize nearby food early to sustain and size up; later, food becomes tactical leverage to intercept opponents. Veto food chasing that leaves the snake exposed.",
+  "endgame": "Control the final board state: dominate confined spaces, box in opponents, and secure the duel. Implement late-game pressure and positional superiority. Veto aggressive moves that lose position in decisive moments.",
+  "hazard": "Keep the snake safe from edges and hazard tiles at all costs. Maintain safe corridors and avoid dead-end traps. Veto any move that risks instant death."
+}

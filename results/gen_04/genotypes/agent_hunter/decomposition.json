@@ -1,0 +1,10 @@
+{
+  "specialists": [
+    "combat",
+    "space_control",
+    "food"
+  ],
+  "referee_policy": "priority_order",
+  "tester": true,
+  "refine_rounds": 2
+}

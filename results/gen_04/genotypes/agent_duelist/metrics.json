@@ -1,0 +1,13 @@
+{
+  "id": "duelist",
+  "ladder_fitness": 0.5183333333333333,
+  "per_rung": {
+    "weak": 0.76,
+    "moderate": 0.41333333333333333,
+    "strong": 0.3333333333333333,
+    "sonnet": 0.5666666666666667
+  },
+  "sims": 150,
+  "seed": 0,
+  "reeval": true
+}

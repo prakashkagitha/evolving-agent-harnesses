@@ -1,0 +1,43 @@
+{
+  "out": "/local-ssd/pk669/programming/co-evolution/codeclash-evolution/cc_decomp_evo",
+  "seed": 0,
+  "generations": 4,
+  "pop": 8,
+  "survivors": 4,
+  "refine_rounds": 2,
+  "crossovers": 0,
+  "sims_evolve": 120,
+  "sims_admit": 200,
+  "sims_final": 1500,
+  "models": {
+    "inner_coder": "haiku",
+    "outer_reflect": "sonnet",
+    "sonnet_rung": "sonnet"
+  },
+  "ladder": {
+    "weak": "naive food-seeker",
+    "moderate": "greedy flood-fill (CodeClash bench)",
+    "strong": "flood-fill + head-to-head + space-guard (hand-written)",
+    "sonnet": "Sonnet simple-refinement bot (produced once, frozen)"
+  },
+  "specialist_menu": [
+    "space_control",
+    "combat",
+    "food",
+    "endgame",
+    "hazard"
+  ],
+  "referee_policies": [
+    "priority_order",
+    "weighted_vote",
+    "planner_merge"
+  ],
+  "lenses": [
+    "strategy",
+    "concept",
+    "decomposition",
+    "robustness"
+  ],
+  "battlesnake_commit": "26640435a497",
+  "codeclash_commit": "7fcc206c6975"
+}

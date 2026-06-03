@@ -1,0 +1,8 @@
+{
+  "parent_id": "space_first",
+  "parent_gen": 2,
+  "lens": "decomposition",
+  "origin": "mutation",
+  "changed_components": ["decomposition.json"],
+  "diff": "Added 'combat' specialist to address low win-rates vs moderate (43%) and strong (39%) rungs where head-to-head collision avoidance/targeting was missing."
+}

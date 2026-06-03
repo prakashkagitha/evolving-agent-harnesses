@@ -1,0 +1,13 @@
+{
+  "id": "forager",
+  "ladder_fitness": 0.4066666666666667,
+  "per_rung": {
+    "weak": 0.6,
+    "moderate": 0.29333333333333333,
+    "strong": 0.28,
+    "sonnet": 0.4533333333333333
+  },
+  "sims": 150,
+  "seed": 0,
+  "reeval": true
+}

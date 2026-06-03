@@ -1,0 +1,13 @@
+{
+  "id": "minimal_space",
+  "ladder_fitness": 0.17,
+  "per_rung": {
+    "weak": 0.2866666666666667,
+    "moderate": 0.08666666666666667,
+    "strong": 0.04666666666666667,
+    "sonnet": 0.26
+  },
+  "sims": 150,
+  "seed": 0,
+  "reeval": true
+}

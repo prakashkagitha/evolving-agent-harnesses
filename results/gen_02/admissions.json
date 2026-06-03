@@ -1,0 +1,66 @@
+{
+  "gen": 2,
+  "offspring": [
+    {
+      "id": "g02_00",
+      "lens": "strategy",
+      "parent_id": "hunter",
+      "delta": 0.09479166666666666,
+      "ci_low": 0.05520833333333333,
+      "ci_high": 0.134375,
+      "admitted": true,
+      "child_fit": 0.365625,
+      "parent_fit": 0.2708333333333333,
+      "changed_components": [
+        "planner_prompt.md"
+      ],
+      "diff": "Added explicit context-driven prioritization rules (length advantage, length disadvantage, tight space, late game) so the planner knows when to elevate space_control above combat, targeting the 0.40 win-rate weakness vs strong opponents."
+    },
+    {
+      "id": "g02_01",
+      "lens": "concept",
+      "parent_id": "duelist",
+      "delta": -0.13645833333333332,
+      "ci_low": -0.18125,
+      "ci_high": -0.09268229166666657,
+      "admitted": false,
+      "child_fit": 0.35625,
+      "parent_fit": 0.49270833333333336,
+      "changed_components": [],
+      "diff": ""
+    },
+    {
+      "id": "g02_02",
+      "lens": "decomposition",
+      "parent_id": "space_first",
+      "delta": -0.20208333333333334,
+      "ci_low": -0.24583333333333332,
+      "ci_high": -0.15833333333333333,
+      "admitted": false,
+      "child_fit": 0.35104166666666664,
+      "parent_fit": 0.553125,
+      "changed_components": [
+        "decomposition.json"
+      ],
+      "diff": "Added 'combat' specialist to specialists list (was [space_control,food], now [space_control,food,combat]) to address weak win-rates vs strong (39%) and moderate (43%) rungs where head-on collision avoidance and body-block aggression are decisive."
+    },
+    {
+      "id": "g02_03",
+      "lens": "robustness",
+      "parent_id": "balanced",
+      "delta": 0.041666666666666664,
+      "ci_low": 0.007291666666666667,
+      "ci_high": 0.07604166666666666,
+      "admitted": true,
+      "child_fit": 0.4583333333333333,
+      "parent_fit": 0.4166666666666667,
+      "changed_components": [
+        "decomposition.json"
+      ],
+      "diff": "Increased refine_rounds from 2 to 3 to add one extra self-correction pass, targeting the weak vs-strong win-rate (0.30) by giving the tester more iterations to catch suboptimal moves."
+    }
+  ],
+  "n_admitted": 2,
+  "n_offspring": 4,
+  "reeval": true
+}

@@ -1,0 +1,13 @@
+{
+  "id": "balanced",
+  "ladder_fitness": 0.4166666666666667,
+  "per_rung": {
+    "weak": 0.6266666666666667,
+    "moderate": 0.2866666666666667,
+    "strong": 0.28,
+    "sonnet": 0.47333333333333333
+  },
+  "sims": 150,
+  "seed": 0,
+  "reeval": true
+}

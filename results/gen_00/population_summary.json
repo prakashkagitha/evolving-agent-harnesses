@@ -1,0 +1,86 @@
+{
+  "gen": 0,
+  "ids": [
+    "space_first",
+    "hunter",
+    "balanced",
+    "forager",
+    "survivor",
+    "generalist",
+    "duelist",
+    "minimal_space"
+  ],
+  "champion": "space_first",
+  "champion_fitness": 0.5466666666666666,
+  "fitness_distribution": [
+    {
+      "id": "space_first",
+      "ladder_fitness": 0.5466666666666666
+    },
+    {
+      "id": "duelist",
+      "ladder_fitness": 0.5067567567567567
+    },
+    {
+      "id": "forager",
+      "ladder_fitness": 0.41833333333333333
+    },
+    {
+      "id": "balanced",
+      "ladder_fitness": 0.4166666666666667
+    },
+    {
+      "id": "hunter",
+      "ladder_fitness": 0.31333333333333335
+    },
+    {
+      "id": "generalist",
+      "ladder_fitness": 0.17666666666666667
+    },
+    {
+      "id": "minimal_space",
+      "ladder_fitness": 0.17
+    },
+    {
+      "id": "survivor",
+      "ladder_fitness": 0.07333333333333333
+    }
+  ],
+  "n_admitted": 0,
+  "structure": {
+    "specialist_sets": {
+      "space_control+food": 1,
+      "combat+space_control+food": 1,
+      "space_control+combat+food": 1,
+      "food+space_control": 1,
+      "space_control+hazard": 1,
+      "space_control+combat+food+endgame+hazard": 1,
+      "combat+endgame+space_control": 1,
+      "space_control": 1
+    },
+    "specialist_counts": {
+      "space_control": 8,
+      "combat": 4,
+      "food": 5,
+      "endgame": 2,
+      "hazard": 2
+    },
+    "referee_policies": {
+      "weighted_vote": 5,
+      "priority_order": 2,
+      "planner_merge": 1
+    },
+    "tester_fraction": 0.75,
+    "mean_refine_rounds": 2.0,
+    "mean_specialist_count": 2.625
+  },
+  "concept_inventory": {
+    "space/flood-fill": 8,
+    "head-to-head/combat": 4,
+    "food/health": 5,
+    "endgame/duel": 2,
+    "hazard/edge": 2,
+    "lookahead/adapt": 0,
+    "trap-avoidance": 4
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "specialists": [
+    "food",
+    "space_control"
+  ],
+  "referee_policy": "weighted_vote",
+  "tester": false,
+  "refine_rounds": 2
+}

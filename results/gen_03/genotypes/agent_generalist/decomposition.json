@@ -1,0 +1,12 @@
+{
+  "specialists": [
+    "space_control",
+    "combat",
+    "food",
+    "endgame",
+    "hazard"
+  ],
+  "referee_policy": "planner_merge",
+  "tester": true,
+  "refine_rounds": 2
+}

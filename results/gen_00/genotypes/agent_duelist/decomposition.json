@@ -1,0 +1,10 @@
+{
+  "specialists": [
+    "combat",
+    "endgame",
+    "space_control"
+  ],
+  "referee_policy": "weighted_vote",
+  "tester": true,
+  "refine_rounds": 2
+}

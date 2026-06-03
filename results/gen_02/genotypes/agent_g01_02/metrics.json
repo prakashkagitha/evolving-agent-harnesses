@@ -1,0 +1,50 @@
+{
+  "verified_vs_parent": {
+    "parent_id": "space_first",
+    "parent_gen": 0,
+    "child_fit": 0.45125,
+    "parent_fit": 0.00875,
+    "delta": 0.4425,
+    "ci_low": 0.4075,
+    "ci_high": 0.4775,
+    "admitted": true,
+    "n_pairs": 800,
+    "per_rung": {
+      "weak": {
+        "child": 0.695,
+        "parent": 0.0
+      },
+      "moderate": {
+        "child": 0.36,
+        "parent": 0.0
+      },
+      "strong": {
+        "child": 0.295,
+        "parent": 0.0
+      },
+      "sonnet": {
+        "child": 0.455,
+        "parent": 0.035
+      }
+    },
+    "sims": 200,
+    "seed": 0
+  },
+  "id": "g01_02",
+  "per_rung_admit": {
+    "weak": 0.695,
+    "moderate": 0.36,
+    "strong": 0.295,
+    "sonnet": 0.455
+  },
+  "ladder_fitness": 0.43166666666666664,
+  "per_rung": {
+    "weak": 0.6133333333333333,
+    "moderate": 0.37333333333333335,
+    "strong": 0.30666666666666664,
+    "sonnet": 0.43333333333333335
+  },
+  "sims": 150,
+  "seed": 0,
+  "reeval": true
+}

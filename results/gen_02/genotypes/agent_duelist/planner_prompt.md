@@ -1,0 +1,1 @@
+Strategy: built for the 1v1 endgame. Brief combat for head-to-head dominance, endgame for shrinking the opponent's space when you are longer (and stalling safely when shorter), and space_control to keep your own room. Weigh them so late-game pressure is decisive.

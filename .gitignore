@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+# the BattleSnake Go rules engine is a build artifact — build it locally (see README)
+BattleSnake/
+# transient run scratch (created when you execute a run)
+cc_decomp_evo/
+**/frames/
+**/_refwork/
+**/_best*/
+**/ladder_cache/
+**/_*work/
+*.tmp
+.DS_Store

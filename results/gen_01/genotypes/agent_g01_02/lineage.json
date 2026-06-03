@@ -1,0 +1,8 @@
+{
+  "parent_id": "space_first",
+  "parent_gen": 0,
+  "lens": "decomposition",
+  "origin": "mutation",
+  "changed_components": ["decomposition.json"],
+  "diff": "Added 'combat' specialist to specialists list to address weak win-rate vs strong opponents (39%)"
+}
