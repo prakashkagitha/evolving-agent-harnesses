@@ -17,8 +17,8 @@ export const meta = {
 let A = {}
 try { A = (typeof args === 'string') ? JSON.parse(args) : (args || {}) } catch (e) { A = {} }
 // Absolute path to this repo on the machine running Claude Code (agents run shell commands from here).
-// Override per-run with {"ccroot": "/abs/path/to/gepa-harness", ...} in the Workflow `args`.
-const CCROOT = (A && A.ccroot) || '/ABSOLUTE/PATH/TO/gepa-harness'
+// Override per-run with {"ccroot": "/abs/path/to/evolving-agent-harnesses", ...} in the Workflow `args`.
+const CCROOT = (A && A.ccroot) || '/ABSOLUTE/PATH/TO/evolving-agent-harnesses'
 const OUT = A.out || (CCROOT + '/cc_decomp_evo')
 const SEED = A.seed ?? 0
 const GEN = A.generations ?? 6
