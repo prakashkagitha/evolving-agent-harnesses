@@ -13,3 +13,10 @@ cc_decomp_evo/
 **/_*work/
 *.tmp
 .DS_Store
+# transient per-run output dirs for the GEPA/CORE study (rebuild by launching the workflows)
+cc_*_evo*/
+cc_*_smoke_*/
+cc_*_dec_*/
+# scratch
+*.log
+undefined
