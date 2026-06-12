@@ -62,8 +62,10 @@ def fig_ablation(d):
     if rows:
         xs = range(len(rows))
         ys = [v["winrate"] for _, v, _ in rows]
-        lo = [v["winrate"] - v["ci_low"] for _, v, _ in rows]
-        hi = [v["ci_high"] - v["winrate"] for _, v, _ in rows]
+        # clamp to >=0: a Wilson CI can sit slightly off the point estimate (e.g. winrate 0.0),
+        # and matplotlib rejects negative yerr.
+        lo = [max(0.0, v["winrate"] - v["ci_low"]) for _, v, _ in rows]
+        hi = [max(0.0, v["ci_high"] - v["winrate"]) for _, v, _ in rows]
         ax.bar(xs, ys, yerr=[lo, hi], capsize=5, color=[col for _, _, col in rows])
         ax.set_xticks(list(xs)); ax.set_xticklabels([n for n, _, _ in rows], rotation=12)
         ax.set_ylim(0, 1); ax.set_ylabel("ladder mean win-rate (95% CI)")
