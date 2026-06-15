@@ -89,7 +89,7 @@ A second guard, the **decoupled-admit gate** (explore cheaply, re-evaluate paren
 | [`cc_gepa/`](cc_gepa/), [`cc_decomp/`](cc_decomp/), [`cc_prompt/`](cc_prompt/) | Shared library — the native BattleSnake simulator + opponent ladder, and the harness / store / scoring / select-admit utilities the pipeline reuses |
 | [`BattleSnake/`](BattleSnake/) | Vendored BattleSnake rules-engine source (build the binary locally with `scripts/build_battlesnake.sh`) |
 | [`results/`](results/) | The honest, de-inflated results record — [`RESULTS.md`](results/RESULTS.md) + raw machine-readable data in [`results/data/`](results/data/) |
-| [`assets/`](assets/) | Figures (drawn by Sonnet) |
+| [`assets/`](assets/) | Figures |
 
 ---
 
@@ -113,4 +113,4 @@ pip install -r requirements.txt
 
 Caveats, in the open: the headline metric is **BattleSnake ladder win-rate** (one game domain); win-rates are de-inflated point estimates with bootstrap CIs, not multi-seed means across domains; the SWE-bench generalization is still running. The full, unvarnished record — including the bugs we found and fixed — is in [`results/RESULTS.md`](results/RESULTS.md).
 
-<sub>Built with Claude Code + Claude Dynamic Workflows. Figures drawn by Claude Sonnet.</sub>
+<sub>Built with Claude Code + Claude Dynamic Workflows.</sub>
