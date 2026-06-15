@@ -1,0 +1,13 @@
+[
+  {"label": "gepa8_g05_00", "tag": "GEPA-8x champ (0.809)",  "R": 8, "src_out": "/local-ssd/pk669/programming/co-evolution/evolving-agent-harnesses/cc_pipe_evo_8x_gepa", "src_gen": 5, "src_agent": "g05_00"},
+  {"label": "gepa8_g04_00", "tag": "GEPA-8x gen4 (0.704)",   "R": 8, "src_out": "/local-ssd/pk669/programming/co-evolution/evolving-agent-harnesses/cc_pipe_evo_8x_gepa", "src_gen": 4, "src_agent": "g04_00"},
+  {"label": "gepa8_g03_00", "tag": "GEPA-8x gen3 (0.574)",   "R": 8, "src_out": "/local-ssd/pk669/programming/co-evolution/evolving-agent-harnesses/cc_pipe_evo_8x_gepa", "src_gen": 3, "src_agent": "g03_00"},
+  {"label": "core8_g04_00", "tag": "CORE-8x champ (0.631)",  "R": 8, "src_out": "/local-ssd/pk669/programming/co-evolution/evolving-agent-harnesses/cc_pipe_evo_8x_core", "src_gen": 4, "src_agent": "g04_00"},
+  {"label": "core8_balanced", "tag": "CORE-8x gen0 (0.407)", "R": 8, "src_out": "/local-ssd/pk669/programming/co-evolution/evolving-agent-harnesses/cc_pipe_evo_8x_core", "src_gen": 0, "src_agent": "balanced_crit"},
+  {"label": "gepa4_g04_02", "tag": "GEPA-4x champ (0.504)",  "R": 8, "src_out": "/local-ssd/pk669/programming/co-evolution/evolving-agent-harnesses/cc_pipe_evo_gepa", "src_gen": 4, "src_agent": "g04_02"},
+  {"label": "core4_g02_02", "tag": "CORE-4x champ (0.437)",  "R": 8, "src_out": "/local-ssd/pk669/programming/co-evolution/evolving-agent-harnesses/cc_pipe_evo_core", "src_gen": 2, "src_agent": "g02_02"},
+  {"label": "sonnet_1shot", "tag": "single-shot Sonnet bar", "R": 12, "roles": ["draft"], "draft_model": "sonnet"},
+  {"label": "opus_1shot",   "tag": "single-shot Opus bar",   "R": 12, "roles": ["draft"], "draft_model": "opus"},
+  {"label": "haiku_1shot",  "tag": "single-shot Haiku floor","R": 12, "roles": ["draft"], "draft_model": "haiku"},
+  {"label": "bestof8",      "tag": "best-of-8 naive bar",    "R": 8,  "roles": ["draft","draft","draft","draft","draft","draft","draft","draft"], "draft_model": "haiku"}
+]

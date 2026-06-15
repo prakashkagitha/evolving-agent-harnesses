@@ -1,8 +1,0 @@
-{
-  "parent_id": "balanced",
-  "parent_gen": 0,
-  "lens": "robustness",
-  "origin": "mutation",
-  "changed_components": ["decomposition.json"],
-  "diff": "Increased refine_rounds from 2 to 3 to give the tester more correction iterations, targeting the weak 0.30 win-rate vs strong opponents."
-}

@@ -1,1 +1,0 @@
-{"space_control":"Prioritize maintaining the most reachable open space available to avoid self-trapping; veto any moves that lead to immediate dead-ends or box the snake in. Focus on pathfinding efficiency and safety—avoid walls and body, keep escape routes open."}

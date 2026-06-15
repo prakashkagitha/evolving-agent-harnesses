@@ -1,20 +1,11 @@
 <div align="center">
 
-# Evolving a multi-agent coding harness with GEPA + Claude Dynamic Workflows
+# Evolving Agent Harnesses
+### Make 8 calls of a *small* model beat one call of a *frontier* model — by evolving the harness, not the model
 
-**A fixed small model (Haiku) writes BattleSnake bots inside a nested multi-agent _harness_. A GEPA-style optimizer (Sonnet) evolves the harness — and keeps a change only if it _verifiably_ beats its parent.**
+**A fixed small model (Claude Haiku) writes the answer. A reflective optimizer (Claude Sonnet) evolves the _harness_ that structures Haiku's N calls — and a change is kept only if it _verifiably_ beats its parent. The evolved 8-call Haiku harness beats single-shot Opus and Sonnet.**
 
-<img src="assets/winning_mutation.png" alt="The winning mutation: evolving the harness added a combat specialist, a verified +6.0% win-rate gain" width="900">
-
-</div>
-
----
-
-<div align="center">
-
-<img src="assets/before_after.gif" alt="Before vs after the winning mutation — same opponent and seed; the parent harness loses the head-to-head, the evolved harness with the added combat specialist wins" width="900">
-
-<sub><b>Same opponent, same starting seed.</b> The only change is the added <code>combat</code> specialist — the parent harness (left) loses the head-to-head; the evolved harness (right) wins the board.</sub>
+<img src="assets/headline_harness_evolution.svg" alt="Three harness designs for spending 8 Haiku calls: naive sequential refine (0.27), naive parallel best-of-8 (0.45), and the evolved diversify-then-refine hybrid (0.72) that beats Sonnet and Opus" width="960">
 
 </div>
 
@@ -22,197 +13,104 @@
 
 ## TL;DR
 
-- **The harness is a nested multi-agent pipeline** — a *planner* fans out parallel *specialist coders*, a *referee* merges their code, and a *verified refine loop* hardens it. This whole pipeline is **one Claude Dynamic Workflow**, and every agent in it is a small model (**Haiku**).
-- **The optimizer is GEPA-style** — a larger model (**Sonnet**) *reflects* on where the bot loses, *mutates* the harness, and a **verified-acceptance gate** admits a child only if a paired, common-seed comparison shows it beats its parent (95% CI strictly above zero). Regressions are never admitted.
-- **It works.** The evolved harness's bot beats a plain iterative-refinement baseline **0.62 → 0.08** (and best-of-8 → 0.21) on a fixed opponent ladder, and the champion climbed via a single verified edit: **it added a `combat` specialist** after diagnosing weak head-to-head play.
-- **No Opus inside the loop.** Haiku does all the coding; Sonnet does the evolving; Opus only orchestrates. Models are used where they're cheap and strong.
+We evolve the **harness** — the program that orchestrates a fixed small model's calls — instead of fine-tuning a model. The genotype is a budget-*N* self-correction pipeline (a sequence of `draft` / `critique` / `fix` steps, each with its own prompt). [GEPA](https://arxiv.org/abs/2507.19457)-style reflection (Sonnet) proposes changes; a **verified-acceptance gate** (two-sample bootstrap, 95% CI) admits a change only if it genuinely beats its parent. Fitness = mean win-rate on a BattleSnake ladder, where Haiku writes the bot.
 
-> The headline image above is the real, grounded story of the single winning mutation. Everything below is reproducible from this repo.
+| System (8-call budget unless noted) | Ladder win-rate | |
+|---|---:|---|
+| single-shot Haiku | 0.148 | small-model floor |
+| refine-8 (Haiku, naive sequential) | 0.272 | |
+| best-of-8 (Haiku, naive parallel) | 0.449 | ≈ Sonnet |
+| single-shot **Sonnet** | 0.442 | frontier |
+| single-shot **Opus** | 0.522 | frontier |
+| **🏆 evolved Haiku×8** (`D·D·D·D→F·F·F·F`) | **0.719** | **beats Opus by +0.20, Sonnet by +0.28** |
+| evolved Haiku×4 (`D·D→F·F`) | 0.457 | ≈ Sonnet parity at half the budget |
 
----
-
-## 1. How one bot gets built — Claude Dynamic Workflows
-
-A *harness* doesn't search a population to make a bot. It **decomposes the job** across specialist sub-agents and then hardens the result. One harness run is a nested [Claude Dynamic Workflow](https://code.claude.com/docs/en/workflows):
-
-<div align="center">
-<img src="assets/multi-agent-harness.png" alt="Nested multi-agent harness: planner to parallel specialists to referee to tester/debugger loop to one bot" width="640">
-</div>
-
-1. **Planner** (Haiku) reads the strategy framing and writes a short brief for each active specialist.
-2. **Specialist coders** (Haiku, **in parallel** — the fan-out) each write one scoring function: `score(game_state) -> {up, down, left, right}`, where `-1e9` vetoes an unsafe move. The active set is drawn from a fixed menu: `space_control · combat · food · endgame · hazard`.
-3. **Referee** merges them into one `move()` — by deterministic policy (`weighted_vote` / `priority_order`) or by a Haiku-written integrator (`planner_merge`).
-4. **Verified refine loop** (`refute → fix → keep-if-not-worse`, ×N): a **tester** surfaces failing boards, a **debugger** fixes the weakest specialist, and the edit is kept only if it doesn't regress.
-
-Two engineering details make this robust: each specialist is **sandboxed in its own namespace** (a crash is isolated, not contagious), and the referee has a **non-suicidal floor** (it never moves the snake into a body when a safe move exists). The result is one self-contained BattleSnake bot — the harness's *phenotype*.
-
-**Why this is the Dynamic-Workflows showcase:** the depth lives in *execution*. A single workflow deterministically fans out, integrates, and loops over many small-model sub-agents — the orchestration is code, the work is agents.
+*Win-rates are the **honest, de-inflated** figures (champions re-evaluated at higher replication to remove selection bias — see [Honest evaluation](#honest-evaluation-the-thing-most-harness-search-papers-get-wrong)). Frontier bars are single-shot Sonnet/Opus on the same ladder. Full record: [`results/RESULTS.md`](results/RESULTS.md).*
 
 ---
 
-## 2. How the harness is optimized — GEPA
+## The result: evolution discovers a harness that beats the frontier
 
-The two things that *evolve* are kept deliberately small for statistical power:
+The headline figure shows **three different ways to spend 8 Haiku calls**:
 
-- **`planner_prompt`** — the strategy framing + how the planner briefs specialists.
-- **`decomposition`** — which specialists are active, the referee policy, whether the tester is on, and the refine depth.
+1. **Naive refine-8** — `draft → fix → fix → … → fix`. One draft, then seven blind revisions. Blind fixes regress as often as they help: **0.27**, barely above a single Haiku call.
+2. **Naive best-of-8** — `draft ×8`, keep the best. Pure diversity, no refinement. Reaches **0.45** — about single-shot Sonnet.
+3. **Evolved hybrid** — `draft ×4 → fix ×4`. Four independent drafts for diversity, **then** four targeted fixes (each guided by engine feedback) for refinement. **0.72 — it beats single-shot Opus.**
 
-A single evolutionary loop ([GEPA](https://arxiv.org/abs/2507.19457)-style: *reflect → mutate → keep only Pareto/verified improvements*) optimizes them. Here the larger model (Sonnet) does the reflecting and mutating:
-
-<div align="center">
-<img src="assets/GEPA-evolution.png" alt="GEPA loop: population, score vs fixed ladder, select, reflect+mutate (4 lenses, Sonnet), verified gate (beat parent?), admit or discard" width="720">
-</div>
-
-1. **Score** every harness's bot against a **fixed opponent ladder** (held-out; never the evolving population).
-2. **Select** survivors by ladder fitness (the champion is always retained — elitism).
-3. **Reflect + mutate** (Sonnet) through four lenses, each making one *incremental, single-aspect* edit: `strategy` (reframe the prompt) · `concept` (add a missing idea) · `decomposition` (one structural change) · `robustness` (toggle tester / refine depth).
-4. **Verified-acceptance gate** — run the child's harness, then admit it **only if** a paired, common-seed comparison of child-vs-parent has a 95% bootstrap CI **strictly above 0**. Otherwise discard it.
-
-Because regressions are never admitted and the champion is always kept, the champion's fitness is **monotone by construction** — the curve shows *that a real improvement was found and verified*, not a noisy hill-climb.
-
-> *Figure note:* the diagram shows GEPA's default scale (12 genotypes × 6 generations). **This run was budget-scaled to 8 genotypes × 4 generations** (everything else as shown).
-
-### The fixed opponent ladder
-
-Fitness is the bot's mean win-rate across four held-out opponents — which gives the search real *headroom*:
-
-| rung | opponent | round-robin win-rate |
-|---|---|---|
-| 0 · weak | naive food-seeker | 0.24 |
-| 1 · moderate | greedy + flood-fill (CodeClash's benchmark) | 0.57 |
-| 2 · strong | hand-written: flood-fill + head-to-head + space-guard | 0.68 |
-| 3 · Sonnet | one plain-refinement Sonnet bot, frozen | ~0.50 |
-
----
-
-## 3. The whole run — an evolutionary tournament
-
-Zooming out from a single harness: the experiment is a **tournament of harnesses**, each one a coding agent. A population is scored on the fixed ladder, survivors are kept, and every challenger must **win a verified duel with its parent** to advance — repeated for four generations until the champion `g03_02` earns its place.
+The evolved winner isn't an exotic structure — it's the **synthesis** of the two naive ideas in the right ratio. Neither pure refinement nor pure sampling reaches the frontier; *diversify-then-refine* does. And the motif is **scale-consistent**: at a 4-call budget the evolved harness is `draft ×2 → fix ×2` (0.46, Sonnet parity); doubling the budget to `draft ×4 → fix ×4` (0.72) clears Opus. **More budget raises the achievable ceiling, and evolution finds the architecture that cashes it in.**
 
 <div align="center">
-<img src="assets/tournament-orchestration.png" alt="The overall run as an evolutionary tournament of harnesses: population, score vs the fixed ladder, select top survivors, breed challengers (Sonnet, 4 lenses), a verified duel against the parent, repeated 4 generations to produce the champion, with the champion-fitness trajectory" width="900">
-</div>
-
-And it isn't only a diagram — here's that loop as a **real Dynamic Workflow** executing: ~270+ sub-agents over ~3 hours, **Haiku** doing every harness step and **Sonnet** doing the mutations (visible per-agent in the model column).
-
-<div align="center">
-<img src="assets/claude_workflow.png" alt="The live Claude Dynamic Workflow running the experiment: phases, agents, models, tokens" width="760">
+<img src="assets/results_bars.svg" alt="Bar chart of ladder win-rates: Haiku-1shot 0.15, refine-8 0.27, best-of-4 0.28, best-of-8 0.45, Sonnet 0.44, Opus 0.52, evolved-4x 0.46, evolved-8x 0.72" width="820">
 </div>
 
 ---
 
-## 4. The winning mutation (in detail)
+## How it works
 
-The headline image tells it; here are the exact numbers. The champion's lineage traces back to **`space-first`**, a harness with only `[space_control, food]`. It was strong on space but **weak in fights — 39% wins vs the strong rung**. The `decomposition` lens reflected on exactly that and made one change:
+<div align="center">
+<img src="assets/evolution_loop.svg" alt="The evolution loop: a population of harnesses is scored on the ladder; Sonnet reflects on a parent's failures and mutates its structure or a prompt; the child is run and only admitted if it verifiably beats its parent by a bootstrap-CI gate" width="900">
+</div>
 
-> **Added the `combat` specialist** → `[space_control, food, combat]` "to address low win-rates vs moderate (43%) and strong (39%) where head-to-head collision avoidance/targeting was missing."
+**1 · The genotype is a harness, not a weight.** Each individual is a budget-*N* pipeline: `roles.json` (the step sequence in `{draft, critique, fix}`, step 0 always `draft`) plus a free-text **strategy prompt per role**. Both the *structure* and the *prompts* evolve.
 
-The planner then briefed the new specialist ("use space advantage to outmaneuver opponents… space denial over aggressive pursuit"), and the verified gate confirmed the gain:
+<div align="center">
+<img src="assets/genotype_anatomy.svg" alt="Anatomy of a harness genotype: roles.json defines the draft/critique/fix step sequence; each role has an evolvable strategy prompt; execution is a keep-best chain with engine feedback" width="780">
+</div>
 
-- **Verified Δ = +0.060, 95% CI [+0.020, +0.103]** → admitted.
-- Champion ladder fitness climbed **0.547 → 0.617** (best-so-far).
+**2 · Execution is a keep-best chain with real feedback.** Haiku runs the pipeline: `draft`/`fix` steps write a bot (scored by a native Go BattleSnake engine), `critique` reads the engine's failure feedback and diagnoses what to change next. The best bot across the chain is kept.
 
-*(The before/after clip at the top of this page is exactly this mutation — same opponent, same seed.)*
+**3 · The optimizer is reflective (GEPA).** Sonnet reads a parent's metrics + failures and proposes **one** change — retype/reorder a step, or rewrite a single role's prompt — explaining its reasoning.
+
+**4 · Acceptance is _verified_.** A proposed child is only admitted if it beats its parent on a **two-sample bootstrap over pooled per-game outcomes (95% CI)**. This is the load-bearing piece: it's what stops the search from chasing noise.
+
+The whole loop runs on **[Claude Dynamic Workflows](https://docs.claude.com/en/docs/claude-code)** — parallel agent orchestration with structured outputs, resumable and cap-guarded.
 
 ---
 
-## 5. Results
+## Honest evaluation (the thing most harness-search papers get wrong)
 
-**The contribution test — does the *harness* actually help?** Champion vs both ablations, 1500 games per rung (Wilson 95% CIs), non-overlapping:
+Evolution **selects** the offspring with the best measured fitness. With a noisy fitness signal (Haiku has large run-to-run variance), the *max over noisy estimates* is biased **upward** — the optimizer's curse. We caught this directly:
 
-| bot | ladder-mean win-rate |
+- An R=3-selected 8× champion reported **0.809**; re-evaluated with fresh, higher-replication draws it was **0.598**. Unselected baselines stayed put — only the *selected* numbers regressed.
+- So every champion here is **de-inflated**: re-scored at higher replication before any claim. The robust best champion is `g04_00` = **0.719 [0.69, 0.74]**.
+
+A second guard, the **decoupled-admit gate** (explore cheaply, re-evaluate parent-beaters at high replication, admit only on the robust comparison), produces the honest 4× number (0.457). **Report numbers you re-measured, not the ones selection handed you.**
+
+> The same discipline applies to *what you select on*: if the keep-best signal is a weak proxy that overfits, or the frontier is already near-ceiling, the gain won't generalize. The harness benefit shows up only with a **deployable verifier** (a real win-rate / test-execution signal) and a **beatable** frontier.
+
+---
+
+## What's in here
+
+| Path | What |
 |---|---|
-| **evolved champion** | **0.617** [0.604, 0.629] |
-| best-of-8 monolithic refinement | 0.214 [0.204, 0.224] |
-| single simple-refinement | 0.076 [0.070, 0.083] |
-
-Head-to-head, the champion beats the simple-refinement bot **0.98** and best-of-8 **0.77**. Per-rung it wins **0.79 / 0.52 / 0.47 / 0.69** vs weak / moderate / strong / Sonnet — i.e. it beats the plain-refinement *Sonnet* rung while being built entirely by *Haiku*.
-
-**The verified-acceptance gate, working.** Across the run, **5 of 16 mutations** cleared the CI gate — small, real gains spread across lenses, with no single dominant operator (the `concept` lens never cleared it):
-
-| lens | admitted / tried | mean verified Δ |
-|---|---|---|
-| strategy | 2 / 4 | +0.07 |
-| robustness | 2 / 4 | +0.05 |
-| decomposition | 1 / 4 | +0.06 |
-| concept | 0 / 4 | — |
-
-<div align="center">
-<img src="assets/figures/trajectory.png" width="49%"> <img src="assets/figures/attribution.png" width="49%">
-</div>
-
-📊 **Full interactive write-ups:** [`assets/report.html`](assets/report.html) (charts + tables) and [`assets/evolution_story.html`](assets/evolution_story.html) (the scrollable story). Raw numbers in [`results/analysis_data.json`](results/analysis_data.json) and [`results/analysis.md`](results/analysis.md).
-
-### Honest caveats
-
-- **Part of the giant ablation gap is *structural*, not evolutionary.** The decomposition scaffold makes bots competent (safety floor + isolated specialists) while a monolithic bot is fragile (the simple-refinement baseline is near-broken at 0.08). The *evolution's own* contribution is the smaller, verified 0.547 → 0.617 climb.
-- **n = 1 seed**, budget-scaled (8 genotypes × 4 generations). The method (verified gate, ladder anchoring, all-four-lenses) is fully exercised; ≥3 seeds would be the cheapest path to a stronger claim.
-- **The Sonnet rung is a plain-refinement bot** (~0.50). Beating it means *evolved-Haiku-harness ≥ plain-refinement-Sonnet* — a fair, bounded claim; no transfer to Sonnet is implied.
+| [`cc_pipe/`](cc_pipe/) | **The headline experiment** — evolve a typed self-correction **pipeline** (GEPA vs CORE), the verified-acceptance gate, the baselines, and the decoupled-admit re-runs (controller + Claude Dynamic Workflow drivers) |
+| [`cc_core/`](cc_core/) | CORE — contrastive winner/loser reflection into a utility-weighted insight bank (the GEPA alternative we compare against) |
+| [`cc_gepa/`](cc_gepa/), [`cc_decomp/`](cc_decomp/), [`cc_prompt/`](cc_prompt/) | Shared library — the native BattleSnake simulator + opponent ladder, and the harness / store / scoring / select-admit utilities the pipeline reuses |
+| [`BattleSnake/`](BattleSnake/) | Vendored BattleSnake rules-engine source (build the binary locally with `scripts/build_battlesnake.sh`) |
+| [`results/`](results/) | The honest, de-inflated results record — [`RESULTS.md`](results/RESULTS.md) + raw machine-readable data in [`results/data/`](results/data/) |
+| [`assets/`](assets/) | Figures (drawn by Sonnet) |
 
 ---
 
-## 6. Repository layout
+## Key findings
 
-```
-cc_decomp/            the system
-  control.py          deterministic "brain": ladder scoring, the paired-CI gate,
-                      refine loop, generation reconciliation, verification gate
-  harness.py          the decomposition adapter (assembly, contracts, tester)
-  seeds.py            12 diverse seed harnesses (incl. deliberately weak ones)
-  ladder/             hand-written weak + strong opponent rungs
-  workflow.js         the Claude Dynamic Workflow orchestrator
-  analysis.py viz.py  analysis.md + report.html + figures
-  reeval.py           token-free, contention-free reliable re-evaluation
-  _mocktest.py        token-free end-to-end test of the controller
-cc_gepa/              reused native BattleSnake sim layer (HTTP bots, the engine runner)
-results/              the evolved harnesses (genotypes + produced bots + metrics) + analysis
-assets/               figures + report.html + evolution_story.html
-docs/workflow_spec.md the full experiment specification
-```
-
-**The genotype is two text components** you can read directly, e.g. the champion at
-[`results/gen_03/genotypes/agent_g03_02/`](results/gen_03/genotypes/agent_g03_02) — its `decomposition.json`, the planner's `briefs.json`, and the three evolved `specialists/*.py`.
+- **Small × N can beat large × 1 — if you evolve the harness *and* verify acceptance.** Evolved Haiku×8 (0.72) > single-shot Opus (0.52).
+- **Diversify-then-refine** beats both naive sequential refinement and naive parallel sampling, and the motif **scales** with budget (4× → Sonnet parity, 8× → beats Opus).
+- **Selection inflation is real and large** (~0.1–0.3); de-inflate champions with an independent higher-replication re-eval or you'll report fiction.
+- **GEPA ≫ CORE** under honest evaluation: reflective reflect-and-mutate climbs; the contrastive insight-bank variant was selection-inflated and collapsed below best-of-N.
+- **Harness benefit is domain-dependent.** It needs a *deployable verifier* (game-engine win-rate here; unit-test execution for code) and a *beatable* frontier — which is exactly why the next experiment is on SWE-bench.
 
 ---
 
-## 7. Run it yourself
-
-### The BattleSnake environment — two options
-
-The game is the official **BattleSnake** rules engine (BattlesnakeOfficial/rules, packaged by CodeClash, MIT). Pick whichever you prefer:
-
-- **Option A — our pinned native setup (recommended).** The exact engine **source we used is vendored in [`BattleSnake/`](BattleSnake)** ([CodeClash-ai/BattleSnake](https://github.com/CodeClash-ai/BattleSnake) @ `26640435`). Build the binary and our `cc_gepa` layer serves bots over HTTP on dynamic ports — **no Docker**, high parallelism, fast:
-  ```bash
-  bash scripts/build_battlesnake.sh        # requires Go → builds BattleSnake/game/battlesnake
-  ```
-- **Option B — official CodeClash.** Use the upstream arena instead (Docker): clone [CodeClash](https://github.com/CodeClash-ai/CodeClash) / [CodeClash-ai/BattleSnake](https://github.com/CodeClash-ai/BattleSnake) and build its engine. Either point `BIN` in `cc_gepa/sim.py` at the resulting `battlesnake` binary, or run bots through CodeClash's own Docker environment. Game semantics are identical; only the isolation layer differs.
-
-> The only thing not committed is the compiled binary (it's large and platform-specific) — both options build it locally with one command.
-
-### Then
+## Reproduce
 
 ```bash
-# deps (analysis + figures; the sim core is stdlib only)
 pip install -r requirements.txt
-
-# token-free end-to-end test of the controller (no model calls)
-python3 -m cc_decomp._mocktest
-
-# reliable, contention-free recompute of all results from the saved harnesses (token-free)
-python3 -m cc_decomp.reeval --out results --sims-evolve 150 --sims-admit 240 --sims-final 1500
+# headline 8x experiment (BattleSnake; Haiku writes bots, Sonnet evolves the harness)
+# see cc_pipe/ for the controller + the Claude Dynamic Workflow driver
 ```
 
-**Reproducing the full LLM evolution** runs `cc_decomp/workflow.js` through Claude Code's Dynamic Workflows (it spawns the Haiku/Sonnet sub-agents). Set `ccroot` to your repo path and launch the `Workflow` with knobs, e.g.
-`{ "ccroot": "/abs/path/to/this/repo", "out": "/abs/path/to/this/repo/cc_decomp_evo", "pop": 8, "generations": 4, "refine_rounds": 2 }`.
+Caveats, in the open: the headline metric is **BattleSnake ladder win-rate** (one game domain); win-rates are de-inflated point estimates with bootstrap CIs, not multi-seed means across domains; the SWE-bench generalization is still running. The full, unvarnished record — including the bugs we found and fixed — is in [`results/RESULTS.md`](results/RESULTS.md).
 
-> ⚠️ Native sims spin up many subprocesses. Keep per-call worker parallelism well under your core count (`MAXW` in `control.py`) or concurrent runs oversubscribe the CPU, BotServers miss their readiness window, and the paired gate silently corrupts. `reeval.py` runs sequentially for exactly this reason.
-
----
-
-## Credits & license
-
-- **BattleSnake rules engine** — vendored in [`BattleSnake/`](BattleSnake) from [CodeClash-ai/BattleSnake](https://github.com/CodeClash-ai/BattleSnake) (the official [BattlesnakeOfficial/rules](https://github.com/BattlesnakeOfficial/rules), © Battlesnake Inc., MIT), packaged by [CodeClash](https://github.com/CodeClash-ai/CodeClash). Their `LICENSE` files are retained in the vendored tree. Our addition is a native, no-Docker HTTP sim layer (`cc_gepa/`); game semantics are unchanged.
-- **GEPA** — [*GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning*](https://arxiv.org/abs/2507.19457) (Agrawal et al., 2025) and its implementation [gepa-ai/gepa](https://github.com/gepa-ai/gepa) — the optimization style this builds on (here applied to a multi-agent harness rather than a single prompt).
-- **Claude Dynamic Workflows / Claude Code** — the orchestration substrate that runs the nested harness and the evolutionary loop.
-
-Released under the [MIT License](LICENSE).
+<sub>Built with Claude Code + Claude Dynamic Workflows. Figures drawn by Claude Sonnet.</sub>

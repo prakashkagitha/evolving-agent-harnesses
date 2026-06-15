@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="430" viewBox="0 0 840 430" font-family="system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
+  <!-- Background -->
+  <rect width="840" height="430" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="420" y="36" text-anchor="middle" font-size="21" font-weight="700" fill="#111827">Ladder win-rate — evolving the harness beats the frontier</text>
+
+  <!-- Chart area: left=200, right=780, top=60, bottom=370 -->
+  <!-- Bar chart layout: labels in [0,200], bars in [200,780], scale 0–0.80 -->
+
+  <!-- Axis ticks and grid lines -->
+  <!-- x positions: 200 + (val/0.80)*(580) -->
+  <!-- 0.0 → 200, 0.2 → 345, 0.4 → 490, 0.6 → 635, 0.8 → 780 -->
+
+  <!-- Grid lines (light) -->
+  <line x1="200" y1="60" x2="200" y2="370" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="345" y1="60" x2="345" y2="370" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="490" y1="60" x2="490" y2="370" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="635" y1="60" x2="635" y2="370" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="780" y1="60" x2="780" y2="370" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Axis tick labels -->
+  <text x="200" y="388" text-anchor="middle" font-size="12" fill="#6b7280">0.0</text>
+  <text x="345" y="388" text-anchor="middle" font-size="12" fill="#6b7280">0.2</text>
+  <text x="490" y="388" text-anchor="middle" font-size="12" fill="#6b7280">0.4</text>
+  <text x="635" y="388" text-anchor="middle" font-size="12" fill="#6b7280">0.6</text>
+  <text x="780" y="388" text-anchor="middle" font-size="12" fill="#6b7280">0.8</text>
+
+  <!-- Axis bottom line -->
+  <line x1="200" y1="370" x2="780" y2="370" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Opus frontier dashed line: 0.522 → 200 + (0.522/0.80)*580 = 200 + 378.45 = 578.45 -->
+  <line x1="578.45" y1="60" x2="578.45" y2="370" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.7"/>
+  <text x="582" y="73" font-size="11" fill="#dc2626" opacity="0.85">Opus frontier</text>
+
+  <!-- Row height: (370-60)/8 = 38.75, rows start at y=60 -->
+  <!-- Bar height = 22, centered in row -->
+  <!-- row_center_y = 60 + (i+0.5)*38.75 -->
+  <!-- bar_top_y = row_center_y - 11 -->
+
+  <!-- Row 0: single-shot Haiku, 0.148, gray -->
+  <!-- bar_x2 = 200 + (0.148/0.80)*580 = 200 + 107.35 = 307.35 -->
+  <!-- row_center = 60 + 0.5*38.75 = 79.375 -->
+  <text x="194" y="84" text-anchor="end" font-size="13" fill="#111827">single-shot Haiku</text>
+  <rect x="200" y="68" width="107.35" height="22" rx="6" fill="#6b7280"/>
+  <text x="312" y="84" font-size="13" fill="#6b7280">0.148</text>
+
+  <!-- Row 1: refine-8 (Haiku), 0.272, gray -->
+  <!-- bar_x2 = 200 + (0.272/0.80)*580 = 200 + 197.4 = 397.4 -->
+  <!-- row_center = 60 + 1.5*38.75 = 118.125 -->
+  <text x="194" y="123" text-anchor="end" font-size="13" fill="#111827">refine-8 (Haiku)</text>
+  <rect x="200" y="107" width="197.4" height="22" rx="6" fill="#6b7280"/>
+  <text x="402" y="123" font-size="13" fill="#6b7280">0.272</text>
+
+  <!-- Row 2: best-of-4 (Haiku), 0.278, gray -->
+  <!-- bar_x2 = 200 + (0.278/0.80)*580 = 200 + 201.775 = 401.775 -->
+  <!-- row_center = 60 + 2.5*38.75 = 156.875 -->
+  <text x="194" y="162" text-anchor="end" font-size="13" fill="#111827">best-of-4 (Haiku)</text>
+  <rect x="200" y="146" width="201.775" height="22" rx="6" fill="#6b7280"/>
+  <text x="407" y="162" font-size="13" fill="#6b7280">0.278</text>
+
+  <!-- Row 3: best-of-8 (Haiku), 0.449, gray -->
+  <!-- bar_x2 = 200 + (0.449/0.80)*580 = 200 + 325.525 = 525.525 -->
+  <!-- row_center = 60 + 3.5*38.75 = 195.625 -->
+  <text x="194" y="201" text-anchor="end" font-size="13" fill="#111827">best-of-8 (Haiku)</text>
+  <rect x="200" y="185" width="325.525" height="22" rx="6" fill="#6b7280"/>
+  <text x="531" y="201" font-size="13" fill="#6b7280">0.449</text>
+
+  <!-- Row 4: single-shot Sonnet, 0.442, red -->
+  <!-- bar_x2 = 200 + (0.442/0.80)*580 = 200 + 320.45 = 520.45 -->
+  <!-- row_center = 60 + 4.5*38.75 = 234.375 -->
+  <text x="194" y="240" text-anchor="end" font-size="13" fill="#111827">single-shot Sonnet</text>
+  <rect x="200" y="224" width="320.45" height="22" rx="6" fill="#dc2626"/>
+  <text x="526" y="240" font-size="13" fill="#dc2626">0.442</text>
+
+  <!-- Row 5: single-shot Opus, 0.522, red -->
+  <!-- bar_x2 = 200 + (0.522/0.80)*580 = 200 + 378.45 = 578.45 -->
+  <!-- row_center = 60 + 5.5*38.75 = 273.125 -->
+  <text x="194" y="279" text-anchor="end" font-size="13" fill="#111827">single-shot Opus</text>
+  <rect x="200" y="263" width="378.45" height="22" rx="6" fill="#dc2626"/>
+  <text x="584" y="279" font-size="13" fill="#dc2626">0.522</text>
+
+  <!-- Row 6: evolved Haiku×4, 0.457, green -->
+  <!-- bar_x2 = 200 + (0.457/0.80)*580 = 200 + 331.325 = 531.325 -->
+  <!-- row_center = 60 + 6.5*38.75 = 311.875 -->
+  <text x="194" y="318" text-anchor="end" font-size="13" fill="#111827">evolved Haiku×4</text>
+  <rect x="200" y="302" width="331.325" height="22" rx="6" fill="#16a34a"/>
+  <text x="537" y="318" font-size="13" fill="#16a34a">0.457</text>
+
+  <!-- Row 7: evolved Haiku×8, 0.719, green (bold/thick) -->
+  <!-- bar_x2 = 200 + (0.719/0.80)*580 = 200 + 521.275 = 721.275 -->
+  <!-- row_center = 60 + 7.5*38.75 = 350.625 -->
+  <text x="194" y="357" text-anchor="end" font-size="14" font-weight="700" fill="#111827">evolved Haiku×8</text>
+  <rect x="200" y="339" width="521.275" height="26" rx="6" fill="#15803d"/>
+  <text x="727" y="357" font-size="14" font-weight="700" fill="#15803d">0.719 &#x2B50;</text>
+
+  <!-- Caption -->
+  <text x="420" y="415" text-anchor="middle" font-size="11" fill="#6b7280">honest, de-inflated win-rates (champions re-scored at higher replication) · BattleSnake ladder</text>
+</svg>

@@ -1,0 +1,213 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="440" viewBox="0 0 960 440" font-family="system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
+  <!-- Background -->
+  <rect width="960" height="440" fill="#ffffff"/>
+
+  <!-- Main title -->
+  <text x="480" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#111827">Three ways to spend 8 Haiku calls — only the evolved harness beats the frontier</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       PANEL 1 — Naive · refine-8
+       card: x=16, y=50, w=292, h=350
+  ══════════════════════════════════════════════════════════════════════ -->
+  <rect x="16" y="50" width="292" height="350" rx="6" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.5"/>
+
+  <!-- Panel 1 header -->
+  <text x="162" y="80" text-anchor="middle" font-size="15" font-weight="600" fill="#6b7280">1 Naive · refine-8</text>
+
+  <!-- Step boxes row: D + 7×F, 8 boxes, each 28×28, gap=4, total=(28*8+4*7)=252, centered in 292 → start x=36 -->
+  <!-- D box (blue) -->
+  <rect x="28" y="98" width="28" height="28" rx="4" fill="#2563eb"/>
+  <text x="42" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">D</text>
+  <!-- Arrow -->
+  <line x1="56" y1="112" x2="62" y2="112" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <!-- F boxes -->
+  <rect x="64" y="98" width="28" height="28" rx="4" fill="#f59e0b"/>
+  <text x="78" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">F</text>
+  <line x1="92" y1="112" x2="98" y2="112" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="100" y="98" width="28" height="28" rx="4" fill="#f59e0b"/>
+  <text x="114" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">F</text>
+  <line x1="128" y1="112" x2="134" y2="112" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="136" y="98" width="28" height="28" rx="4" fill="#f59e0b"/>
+  <text x="150" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">F</text>
+  <line x1="164" y1="112" x2="170" y2="112" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="172" y="98" width="28" height="28" rx="4" fill="#f59e0b"/>
+  <text x="186" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">F</text>
+  <line x1="200" y1="112" x2="206" y2="112" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="208" y="98" width="28" height="28" rx="4" fill="#f59e0b"/>
+  <text x="222" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">F</text>
+  <line x1="236" y1="112" x2="242" y2="112" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="244" y="98" width="28" height="28" rx="4" fill="#f59e0b"/>
+  <text x="258" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">F</text>
+  <line x1="272" y1="112" x2="278" y2="112" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="280" y="98" width="28" height="28" rx="4" fill="#f59e0b"/>
+  <text x="294" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">F</text>
+
+  <!-- Panel 1 caption -->
+  <text x="162" y="152" text-anchor="middle" font-size="13" fill="#6b7280">one draft, then blind fixes</text>
+
+  <!-- Panel 1 score bar: track x=36, y=180, w=240 -->
+  <!-- track -->
+  <rect x="36" y="175" width="240" height="18" rx="4" fill="#e5e7eb"/>
+  <!-- fill: 0.27/0.8 * 240 = 81 -->
+  <rect x="36" y="175" width="81" height="18" rx="4" fill="#9ca3af"/>
+  <!-- score label -->
+  <text x="122" y="189" text-anchor="middle" font-size="13" font-weight="700" fill="#111827">0.27</text>
+  <!-- sub-caption -->
+  <text x="162" y="216" text-anchor="middle" font-size="12" fill="#6b7280">≈ a single Haiku call</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       PANEL 2 — Naive · best-of-8
+       card: x=334, y=50, w=292, h=350
+  ══════════════════════════════════════════════════════════════════════ -->
+  <rect x="334" y="50" width="292" height="350" rx="6" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.5"/>
+
+  <!-- Panel 2 header -->
+  <text x="480" y="80" text-anchor="middle" font-size="15" font-weight="600" fill="#6b7280">2 Naive · best-of-8</text>
+
+  <!-- 8 D boxes fanned/stacked to suggest parallel: offset by (3px,3px) each, draw back-to-front -->
+  <!-- shadow copies (light blue) -->
+  <rect x="377" y="113" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.5"/>
+  <rect x="372" y="108" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.6"/>
+  <rect x="367" y="103" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.7"/>
+  <rect x="362" y="98" width="28" height="28" rx="4" fill="#2563eb"/>
+  <text x="376" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">D</text>
+
+  <rect x="413" y="113" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.5"/>
+  <rect x="408" y="108" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.6"/>
+  <rect x="403" y="103" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.7"/>
+  <rect x="398" y="98" width="28" height="28" rx="4" fill="#2563eb"/>
+  <text x="412" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">D</text>
+
+  <rect x="449" y="113" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.5"/>
+  <rect x="444" y="108" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.6"/>
+  <rect x="439" y="103" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.7"/>
+  <rect x="434" y="98" width="28" height="28" rx="4" fill="#2563eb"/>
+  <text x="448" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">D</text>
+
+  <rect x="485" y="113" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.5"/>
+  <rect x="480" y="108" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.6"/>
+  <rect x="475" y="103" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.7"/>
+  <rect x="470" y="98" width="28" height="28" rx="4" fill="#2563eb"/>
+  <text x="484" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">D</text>
+
+  <rect x="521" y="113" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.5"/>
+  <rect x="516" y="108" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.6"/>
+  <rect x="511" y="103" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.7"/>
+  <rect x="506" y="98" width="28" height="28" rx="4" fill="#2563eb"/>
+  <text x="520" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">D</text>
+
+  <rect x="557" y="113" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.5"/>
+  <rect x="552" y="108" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.6"/>
+  <rect x="547" y="103" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.7"/>
+  <rect x="542" y="98" width="28" height="28" rx="4" fill="#2563eb"/>
+  <text x="556" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">D</text>
+
+  <rect x="593" y="113" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.5"/>
+  <rect x="588" y="108" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.6"/>
+  <rect x="583" y="103" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.7"/>
+  <rect x="578" y="98" width="28" height="28" rx="4" fill="#2563eb"/>
+  <text x="592" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">D</text>
+
+  <rect x="593" y="113" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.5"/>
+  <rect x="588" y="108" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.6"/>
+  <rect x="583" y="103" width="28" height="28" rx="4" fill="#93c5fd" opacity="0.7"/>
+  <rect x="578" y="98" width="28" height="28" rx="4" fill="#2563eb"/>
+  <text x="592" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">D</text>
+
+  <!-- "keep best" tag -->
+  <rect x="598" y="95" width="20" height="36" rx="3" fill="none" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="620" y="113" font-size="11" fill="#2563eb" font-weight="600">keep</text>
+  <text x="620" y="126" font-size="11" fill="#2563eb" font-weight="600">best</text>
+
+  <!-- Panel 2 caption -->
+  <text x="480" y="152" text-anchor="middle" font-size="13" fill="#6b7280">8 parallel drafts, keep best</text>
+
+  <!-- Panel 2 score bar: track x=354, w=240 -->
+  <rect x="354" y="175" width="240" height="18" rx="4" fill="#e5e7eb"/>
+  <!-- fill: 0.45/0.8 * 240 = 135 -->
+  <rect x="354" y="175" width="135" height="18" rx="4" fill="#9ca3af"/>
+  <text x="424" y="189" text-anchor="middle" font-size="13" font-weight="700" fill="#111827">0.45</text>
+  <text x="480" y="216" text-anchor="middle" font-size="12" fill="#6b7280">pure diversity ≈ Sonnet</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       PANEL 3 — EVOLVED · diversify-then-refine
+       card: x=652, y=50, w=292, h=350
+  ══════════════════════════════════════════════════════════════════════ -->
+  <rect x="652" y="50" width="292" height="350" rx="6" fill="#f9fafb" stroke="#16a34a" stroke-width="2"/>
+
+  <!-- Panel 3 header with star -->
+  <text x="796" y="76" text-anchor="middle" font-size="15" font-weight="700" fill="#16a34a">3 EVOLVED · diversify-then-refine</text>
+
+  <!-- 4 D boxes + arrow + 4 F boxes, each 28×28 gap=4, group gap=10 -->
+  <!-- D boxes: start x=664 -->
+  <rect x="664" y="98" width="28" height="28" rx="4" fill="#2563eb"/>
+  <text x="678" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">D</text>
+  <line x1="692" y1="112" x2="698" y2="112" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="700" y="98" width="28" height="28" rx="4" fill="#2563eb"/>
+  <text x="714" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">D</text>
+  <line x1="728" y1="112" x2="734" y2="112" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="736" y="98" width="28" height="28" rx="4" fill="#2563eb"/>
+  <text x="750" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">D</text>
+  <line x1="764" y1="112" x2="770" y2="112" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="772" y="98" width="28" height="28" rx="4" fill="#2563eb"/>
+  <text x="786" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">D</text>
+
+  <!-- big separator arrow -->
+  <line x1="800" y1="112" x2="810" y2="112" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arrGreen)"/>
+
+  <!-- F boxes: start x=812 -->
+  <rect x="812" y="98" width="28" height="28" rx="4" fill="#f59e0b"/>
+  <text x="826" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">F</text>
+  <line x1="840" y1="112" x2="846" y2="112" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="848" y="98" width="28" height="28" rx="4" fill="#f59e0b"/>
+  <text x="862" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">F</text>
+  <line x1="876" y1="112" x2="882" y2="112" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="884" y="98" width="28" height="28" rx="4" fill="#f59e0b"/>
+  <text x="898" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">F</text>
+  <line x1="912" y1="112" x2="918" y2="112" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="920" y="98" width="28" height="28" rx="4" fill="#f59e0b"/>
+  <text x="934" y="117" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">F</text>
+
+  <!-- Panel 3 caption -->
+  <text x="796" y="152" text-anchor="middle" font-size="13" fill="#16a34a" font-weight="600">diversify first, then refine the best</text>
+
+  <!-- Panel 3 score bar: track x=672, w=240 -->
+  <rect x="672" y="175" width="240" height="18" rx="4" fill="#e5e7eb"/>
+  <!-- fill: 0.72/0.8 * 240 = 216 -->
+  <rect x="672" y="175" width="216" height="18" rx="4" fill="#16a34a"/>
+  <text x="780" y="189" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">0.72</text>
+
+  <!-- Reference marks on panel 3 bar -->
+  <!-- Sonnet at 0.44: 0.44/0.8*240 = 132 → x = 672+132 = 804 -->
+  <line x1="804" y1="172" x2="804" y2="196" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="804" y="208" text-anchor="middle" font-size="11" fill="#dc2626" font-weight="600">Sonnet</text>
+  <!-- Opus at 0.52: 0.52/0.8*240 = 156 → x = 672+156 = 828 -->
+  <line x1="828" y1="172" x2="828" y2="196" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="828" y="218" text-anchor="middle" font-size="11" fill="#dc2626" font-weight="600">Opus</text>
+
+  <!-- Panel 3 sub-caption -->
+  <text x="796" y="236" text-anchor="middle" font-size="12" fill="#16a34a" font-weight="600">beats Opus (+0.20) and Sonnet (+0.28)</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       BOTTOM LEGEND STRIP
+  ══════════════════════════════════════════════════════════════════════ -->
+  <rect x="0" y="408" width="960" height="32" fill="#f9fafb"/>
+  <!-- legend: blue=draft -->
+  <rect x="140" y="418" width="14" height="14" rx="3" fill="#2563eb"/>
+  <text x="158" y="429" font-size="12" fill="#6b7280">draft (D)</text>
+  <!-- legend: amber=fix -->
+  <rect x="230" y="418" width="14" height="14" rx="3" fill="#f59e0b"/>
+  <text x="248" y="429" font-size="12" fill="#6b7280">fix (F)</text>
+  <!-- note -->
+  <text x="480" y="429" text-anchor="middle" font-size="12" fill="#6b7280">fixed model = Claude Haiku · win-rate on a BattleSnake ladder · harness evolved by Sonnet</text>
+
+  <!-- Arrow marker defs -->
+  <defs>
+    <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arrGreen" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#16a34a"/>
+    </marker>
+  </defs>
+</svg>

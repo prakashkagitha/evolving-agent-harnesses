@@ -1,1 +1,0 @@
-Strategy: a balanced bot that weighs space, combat safety, and growth together. Brief space_control for flood-fill room, combat for head-to-head safety and opportunism, and food for measured growth. No single concern dominates — integrate them by weighted vote.

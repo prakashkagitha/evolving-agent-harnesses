@@ -1,1 +1,0 @@
-Strategy: a complete bot using every concern. Brief space_control (room), combat (head-to-head), food (growth/health), endgame (late-game duel control), and hazard (edge/hazard safety). Have the planner_merge referee integrate all five intelligently: drop vetoed moves, then favor space and safe growth early, combat/endgame pressure late.

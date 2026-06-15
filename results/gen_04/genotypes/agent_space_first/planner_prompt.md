@@ -1,1 +1,0 @@
-Strategy: win by controlling space and never trapping yourself; survival over greed. Brief the space_control specialist to maximize reachable open area (flood-fill) and veto self-trapping moves; brief the food specialist to eat ONLY when health is low or you are behind on length, never into a dead-end. Space is the priority; food is a top-up.

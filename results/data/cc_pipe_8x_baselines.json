@@ -1,0 +1,47 @@
+{
+  "haiku_1shot": {
+    "fitness": 0.1733333333333333,
+    "per_rung": {
+      "weak": 0.45416666666666666,
+      "moderate": 0.14166666666666666,
+      "strong": 0.05416666666666667
+    },
+    "R_valid": 4
+  },
+  "sonnet_1shot": {
+    "fitness": 0.5011111111111111,
+    "per_rung": {
+      "weak": 0.7366666666666666,
+      "moderate": 0.36666666666666664,
+      "strong": 0.4
+    },
+    "R_valid": 5
+  },
+  "opus_1shot": {
+    "fitness": 0.5055555555555555,
+    "per_rung": {
+      "weak": 0.76,
+      "moderate": 0.42666666666666664,
+      "strong": 0.32999999999999996
+    },
+    "R_valid": 5
+  },
+  "haiku_bestN": {
+    "fitness": 0.4633333333333334,
+    "per_rung": {
+      "weak": 0.5866666666666667,
+      "moderate": 0.4333333333333334,
+      "strong": 0.37
+    },
+    "R_valid": 5
+  },
+  "haiku_refineN": {
+    "fitness": 0.27222222222222225,
+    "per_rung": {
+      "weak": 0.45,
+      "moderate": 0.22333333333333333,
+      "strong": 0.14333333333333334
+    },
+    "R_valid": 5
+  }
+}

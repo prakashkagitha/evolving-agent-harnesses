@@ -1,0 +1,15 @@
+{
+  "final_gen": 5,
+  "champion": "g04_00",
+  "champion_fitness": 0.6314814814814814,
+  "champion_label": "D\u2192D\u2192C\u2192F\u2192C\u2192F\u2192C\u2192F",
+  "gen0_best": "balanced_crit",
+  "gen0_best_fitness": 0.40740740740740744,
+  "baselines": {
+    "haiku_1shot": 0.1733333333333333,
+    "sonnet_1shot": 0.5011111111111111,
+    "opus_1shot": 0.5055555555555555,
+    "haiku_bestN": 0.4633333333333334,
+    "haiku_refineN": 0.27222222222222225
+  }
+}

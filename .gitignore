@@ -20,3 +20,29 @@ cc_*_dec_*/
 # scratch
 *.log
 undefined
+
+# ---- public-repo curation (commit only the reported 8x/4x cc_pipe result + its replication closure) ----
+/cc_alloc/
+/cc_hpe/
+/cc_code/
+/cc_swe/
+/docs/
+/archive/
+/_local/
+/cc_alloc_*/
+/cc_hpe_*/
+/cc_code_*/
+/cc_swe_*/
+# transient run output dirs not covered above
+/cc_*_base/
+/cc_*_reeval/
+/cc_*_gate/
+/cc_*_pilot/
+/cc_prompt_*_s*/
+/cc_pipe_evo/
+/cc_core_evo*/
+# session scratch scripts
+/make_figures.js
+/research_ttc_domains.js
+/run_workflow.mjs
+/simple_workflow.js
