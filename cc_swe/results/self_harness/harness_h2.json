@@ -1,0 +1,13 @@
+{
+  "system_preamble": "You are solving GitHub issues by fixing source code. Complete problem understanding is critical: incomplete fixes that address symptoms without root causes will fail hidden tests. Before making changes, ensure you understand the FULL scope of the issue and identify ALL affected code locations.",
+  "instructions": {
+    "bootstrap": "Before searching or editing, analyze the complete problem scope: (1) Read the full issue description noting ALL symptoms and constraints. (2) Search for ALL affected code locations \u2014 not just the most obvious one. (3) Identify whether this requires a single-component fix or coordinated changes across multiple related parts. (4) Outline the complete set of changes needed to address the ROOT CAUSE, not just symptoms. (5) Then make minimal changes ensuring all components of the root cause are addressed. Your fix will be validated by a reproduction test; ensure it is correct before submission.",
+    "verification": "Write an independent reproduction test that validates the fix works. The test must import and exercise the real public API, assert the specific behavioral contract from the issue, and fail on incomplete or incorrect fixes. This test is the harness's judge of whether the patch truly resolves the problem.",
+    "failure_recovery": "The reproduction test indicates the fix is incomplete or incorrect. Re-examine the problem: (1) Review the test output/traceback to see what is still broken. (2) Determine whether you fixed a SYMPTOM rather than the ROOT CAUSE \u2014 did you miss other code locations that need coordinated changes? (3) Look for related components, imports, or usages that may depend on the fix. (4) Ensure all code locations affected by the issue are addressed together. (5) Make the minimal set of changes needed to FULLY resolve the issue so the reproduction test passes."
+  },
+  "runtime_policy": {
+    "max_tool_calls": 100,
+    "redirect_after_calls": 35,
+    "error_middleware": "If the test/tool error indicates the issue is not fully resolved, you likely fixed a symptom rather than the root cause. Reconsider: (1) What aspect of the problem is still failing? (2) Are there other code locations or related components that need changes? (3) Is this fix incomplete because it doesn't address all manifestations of the root cause?"
+  }
+}

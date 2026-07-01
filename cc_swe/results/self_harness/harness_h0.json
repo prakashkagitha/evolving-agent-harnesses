@@ -1,0 +1,13 @@
+{
+  "system_preamble": "",
+  "instructions": {
+    "bootstrap": "",
+    "verification": "",
+    "failure_recovery": ""
+  },
+  "runtime_policy": {
+    "max_tool_calls": 0,
+    "redirect_after_calls": 0,
+    "error_middleware": ""
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "round": 0,
+  "gate_rule": "accept iff d_in>=0 AND d_ho>=0 AND max(d_in,d_ho)>0",
+  "proposals": [
+    {
+      "candidate": "c0",
+      "surfaces_changed": [
+        "roles",
+        "prompt:draft"
+      ],
+      "targeted_cluster": "Incomplete understanding of problem scope; agent fixes symptom not root cause; fixes one component but misses others",
+      "expected_effect": "write_test verification loop provides concrete feedback on whether the fix actually resolves the entire issue, catching partial/incomplete fixes that pass regression tests but fail on the real problem specification. Strengthened draft prompt forces explicit root-cause identification and scope analysis before proposing changes.",
+      "regression_risk": "LOW \u2014 write_test adds only positive verification signal without changing draft logic. The test-based feedback creates a safety gate that should help held-in instances pass write_test without breaking existing draft behavior.",
+      "d_in": 0,
+      "d_ho": -1,
+      "admitted": false,
+      "reason": "regresses or no net gain"
+    },
+    {
+      "candidate": "c1",
+      "surfaces_changed": [
+        "roles",
+        "preamble",
+        "bootstrap",
+        "failure_recovery",
+        "runtime"
+      ],
+      "targeted_cluster": "Incomplete understanding of problem scope; agent fixes symptom not root cause; fixes one component but misses others",
+      "expected_effect": "Added 'fix' role and populated harness.json with explicit bootstrap (comprehensive scope analysis), failure_recovery (reconsider incomplete fixes), system_preamble (global completeness rule), and error_middleware (symptom-vs-root-cause guidance). With max_tool_calls=100 limiting exploration, this targets the primary failure mechanism (5 held-in instances: pylint-dev__pylint-6528, pylint-dev__pylint-7080, sphinx-doc__sphinx-10435, sphinx-doc__sphinx-10614, mwaskom__seaborn-3069) by forcing multi-component root-cause thinking.",
+      "regression_risk": "Low. Current harness (empty instructions, single draft role) solves 18 instances. New fix role and instructions extend capability without removing existing draft behavior. Instructions reinforce good practice rather than novel constraints. max_tool_calls=100 is permissive.",
+      "d_in": 2,
+      "d_ho": 0,
+      "admitted": true,
+      "reason": "non-regressive improvement"
+    },
+    {
+      "candidate": "c2",
+      "surfaces_changed": [
+        "prompt:draft"
+      ],
+      "targeted_cluster": "Incomplete understanding of problem scope; agent fixes symptom not root cause; fixes one component but misses others",
+      "expected_effect": "Enforce comprehensive scope analysis and root-cause identification before code changes, reducing incomplete fixes that pass regression tests but fail hidden tests",
+      "regression_risk": "Low\u2014rewrite emphasizes the same core task (localize and fix) but adds explicit discipline around scope and root-cause vs symptom",
+      "d_in": 0,
+      "d_ho": -1,
+      "admitted": false,
+      "reason": "regresses or no net gain"
+    }
+  ]
+}

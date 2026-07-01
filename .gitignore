@@ -25,14 +25,16 @@ undefined
 /cc_alloc/
 /cc_hpe/
 /cc_code/
-/cc_swe/
 /docs/
 /archive/
 /_local/
 /cc_alloc_*/
 /cc_hpe_*/
 /cc_code_*/
+# cc_swe/ CODE (Self-Harness + SWE-bench harness) is committed; only the run-output dirs cc_swe_*/ stay ignored
 /cc_swe_*/
+# downloaded paper PDFs (linked from README, not redistributed)
+/papers/
 # transient run output dirs not covered above
 /cc_*_base/
 /cc_*_reeval/

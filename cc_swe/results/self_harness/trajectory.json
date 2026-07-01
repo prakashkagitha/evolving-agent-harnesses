@@ -1,0 +1,68 @@
+{
+  "proposer": "haiku",
+  "rounds": 3,
+  "K": 3,
+  "N": 4,
+  "held_in": 28,
+  "lineage": [
+    {
+      "round": 0,
+      "harness": "h0",
+      "roles": [
+        "draft"
+      ],
+      "held_in_resolved": 18,
+      "held_in_total": 28,
+      "surfaces_changed": []
+    },
+    {
+      "round": 1,
+      "harness": "h1",
+      "roles": [
+        "draft",
+        "fix"
+      ],
+      "held_in_resolved": 18,
+      "held_in_total": 28,
+      "surfaces_changed": [
+        "roles",
+        "preamble",
+        "bootstrap",
+        "failure_recovery",
+        "runtime"
+      ]
+    },
+    {
+      "round": 2,
+      "harness": "h2",
+      "roles": [
+        "draft",
+        "write_test",
+        "fix"
+      ],
+      "held_in_resolved": 23,
+      "held_in_total": 28,
+      "surfaces_changed": [
+        "roles",
+        "verification",
+        "runtime",
+        "prompt:draft",
+        "prompt:fix",
+        "bootstrap",
+        "failure_recovery"
+      ]
+    },
+    {
+      "round": 3,
+      "harness": "h3",
+      "roles": [
+        "draft",
+        "write_test",
+        "fix"
+      ],
+      "held_in_resolved": 23,
+      "held_in_total": 28,
+      "surfaces_changed": []
+    }
+  ]
+}

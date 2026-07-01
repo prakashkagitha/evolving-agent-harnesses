@@ -1,0 +1,53 @@
+{
+  "round": 1,
+  "gate_rule": "accept iff d_in>=0 AND d_ho>=0 AND max(d_in,d_ho)>0",
+  "proposals": [
+    {
+      "candidate": "c0",
+      "surfaces_changed": [
+        "roles",
+        "prompt:draft",
+        "prompt:fix",
+        "bootstrap",
+        "verification",
+        "failure_recovery"
+      ],
+      "targeted_cluster": "Reproduction test missing or not properly validating fix",
+      "expected_effect": "Explicit write_test step (1) enforces reproduction test creation/execution as a mandatory intermediate gate; (2) provides real signal for fix correctness before failure_recovery; (3) harness.json verification field now guides test quality; (4) draft/fix prompts reinforce root-cause thinking given the test-validation context. This directly addresses the primary failure mechanism: 6 instances of patches passing without proper validation.",
+      "regression_risk": "Low: write_test is a net-new verification step with no destructive changes; prompts reinforce existing best practices (root-cause thinking, test-driven validation) with stronger emphasis. The 18 solved instances should remain solved because the new structure validates those fixes more thoroughly; it does not remove or break existing mechanisms.",
+      "d_in": 1,
+      "d_ho": 0,
+      "admitted": true,
+      "reason": "non-regressive improvement"
+    },
+    {
+      "candidate": "c1",
+      "surfaces_changed": [
+        "roles",
+        "verification",
+        "runtime"
+      ],
+      "targeted_cluster": "Reproduction test missing or not properly validating fix (6 instances)",
+      "expected_effect": "Agent now creates and validates reproduction tests before fix attempts. Tests fail on incomplete fixes, preventing patches that apply cleanly but don't resolve issues.",
+      "regression_risk": "Low\u2014write_test.md already exists with correct semantics; verification instruction mirrors existing critique/fix prompts. Redirect_after_calls limits unbounded exploration but preserves solution space for legitimate complex issues.",
+      "d_in": 1,
+      "d_ho": 3,
+      "admitted": true,
+      "reason": "non-regressive improvement"
+    },
+    {
+      "candidate": "c2",
+      "surfaces_changed": [
+        "roles",
+        "verification"
+      ],
+      "targeted_cluster": "Reproduction test missing or not properly validating fix",
+      "expected_effect": "The write_test step now executes in pipeline with explicit mandate to create, run, and report reproduction test result. This directly addresses the 6-instance failure cluster where tests were missing entirely.",
+      "regression_risk": "Low. write_test.md prompt is unchanged and already designed to avoid repo test file edits. Draft and fix prompts unchanged. Structure change is minimal (one additional step). No changes to bootstrap that might affect draft behavior.",
+      "d_in": -2,
+      "d_ho": 0,
+      "admitted": false,
+      "reason": "regresses or no net gain"
+    }
+  ]
+}

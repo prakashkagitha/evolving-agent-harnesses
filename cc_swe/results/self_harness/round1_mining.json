@@ -1,0 +1,52 @@
+{
+  "round": 1,
+  "current_harness": "h1",
+  "clusters": [
+    {
+      "signature": {
+        "cause": "Reproduction test missing or not properly validating fix",
+        "behavior": "Agent generates patch that applies cleanly with no reproduction test to verify it works; hidden test suite rejects it",
+        "mechanism": "Bootstrap role failed to create proper reproduction test or verification step didn't enforce test creation/validation"
+      },
+      "support": 6,
+      "instances": [
+        "0",
+        "2",
+        "14",
+        "20",
+        "21",
+        "26"
+      ],
+      "symptom": "Patch applies cleanly, regression tests pass, but hidden grader says resolved=0; repro_excerpt empty",
+      "addressable_surface": "bootstrap | prompt:draft | verification"
+    },
+    {
+      "signature": {
+        "cause": "Fix does not address root cause; reproduction test explicitly fails",
+        "behavior": "Agent generates patch and reproduction test, but test still fails after applying patch; candidate 1 explicitly shows repro_pass=False",
+        "mechanism": "Agent misunderstood the issue or provided incomplete/incorrect solution; fix is syntactically valid but doesn't solve the problem"
+      },
+      "support": 3,
+      "instances": [
+        "1",
+        "7",
+        "8"
+      ],
+      "symptom": "Reproduction test runs and fails with repro_pass=False; test output shows fix didn't work",
+      "addressable_surface": "prompt:fix | failure_recovery | roles"
+    },
+    {
+      "signature": {
+        "cause": "Fix causes regression in existing test suite",
+        "behavior": "Patch applies and appears correct but breaks previously-passing tests (test_caplog_captures_for_all_stages); regression=0.88",
+        "mechanism": "Agent did not consider side effects or broader test suite impact when writing the fix"
+      },
+      "support": 1,
+      "instances": [
+        "4"
+      ],
+      "symptom": "Fix breaks FAILED testing/logging/test_fixture.py::test_caplog_captures_for_all_stages; score=0.9438 due to regression",
+      "addressable_surface": "prompt:fix | verification | preamble"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "round": 2,
+  "gate_rule": "accept iff d_in>=0 AND d_ho>=0 AND max(d_in,d_ho)>0",
+  "proposals": [
+    {
+      "candidate": "c0",
+      "surfaces_changed": [
+        "roles",
+        "prompt:critique"
+      ],
+      "targeted_cluster": "Repro test written by write_test role has incomplete coverage or misses critical edge cases; fix addresses only what repro test validates",
+      "expected_effect": null,
+      "regression_risk": null,
+      "d_in": -4,
+      "d_ho": 2,
+      "admitted": false,
+      "reason": "regresses or no net gain"
+    },
+    {
+      "candidate": "c1",
+      "surfaces_changed": [
+        "verification"
+      ],
+      "targeted_cluster": "Repro test has incomplete coverage; hidden tests fail despite local repro pass",
+      "expected_effect": "write_test role now explicitly validates edge case coverage (\u22653 boundary conditions per issue + tight assertions per case) before finalizing test. Forces test author to think systematically about incomplete coverage before it causes hidden test failures.",
+      "regression_risk": "Low \u2014 adds stricter reasoning to write_test but does not change test structure or validation logic; the 23 held-in instances passed tests that already covered edge cases well, so this clarification should reinforce their patterns without breaking them.",
+      "d_in": -4,
+      "d_ho": -1,
+      "admitted": false,
+      "reason": "regresses or no net gain"
+    },
+    {
+      "candidate": "c2",
+      "surfaces_changed": [
+        "prompt:write_test",
+        "verification"
+      ],
+      "targeted_cluster": "Repro test written by write_test role has incomplete coverage or misses critical edge cases",
+      "expected_effect": "Write_test role now explicitly tasked with COMPREHENSIVE coverage including edge cases and boundary conditions rather than minimal symptom-only tests. This should catch incomplete fixes that pass local repro but fail hidden test suite by validating related behaviors and edge cases the fix must handle.",
+      "regression_risk": "LOW \u2014 change only adds explicit guidance to write more comprehensive tests; does not remove any existing validation logic. The 23 held-in instances should remain valid since they already required comprehensive testing to pass hidden tests.",
+      "d_in": -3,
+      "d_ho": -1,
+      "admitted": false,
+      "reason": "regresses or no net gain"
+    }
+  ]
+}

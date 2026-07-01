@@ -1,0 +1,76 @@
+{
+  "round": 0,
+  "current_harness": "h0",
+  "clusters": [
+    {
+      "signature": {
+        "cause": "Hidden test fails despite perfect regression score",
+        "behavior": "Agent generates plausible code changes that pass existing tests but don't address root cause of issue",
+        "mechanism": "Incomplete understanding of problem scope; agent fixes symptom not root cause; fixes one component but misses others"
+      },
+      "support": 5,
+      "instances": [
+        "pylint-dev__pylint-6528",
+        "pylint-dev__pylint-7080",
+        "sphinx-doc__sphinx-10435",
+        "sphinx-doc__sphinx-10614",
+        "mwaskom__seaborn-3069"
+      ],
+      "symptom": "Patch passes existing tests but fails hidden test; incomplete root-cause fix",
+      "addressable_surface": "prompt:draft | failure_recovery"
+    },
+    {
+      "signature": {
+        "cause": "Regression test failure (broken existing functionality) + hidden test failure",
+        "behavior": "Agent substitutes semantically equivalent code that breaks dependent code expecting object identity",
+        "mechanism": "Object semantics misunderstanding; code change preserves functional behavior but violates implicit contracts"
+      },
+      "support": 1,
+      "instances": [
+        "pytest-dev__pytest-10051"
+      ],
+      "symptom": "Code change breaks previously-passing test due to semantic violation (object identity)",
+      "addressable_surface": "prompt:draft | verification"
+    },
+    {
+      "signature": {
+        "cause": "Substantially incorrect patch; low score (0.55) indicates most of fix is wrong",
+        "behavior": "Agent generates incorrect code (reordering blocks, wrong return values) that doesn't match problem requirements",
+        "mechanism": "Misinterpretation of problem domain or scope; changes made are tangential or incorrect"
+      },
+      "support": 2,
+      "instances": [
+        "sympy__sympy-12419",
+        "sympy__sympy-13091"
+      ],
+      "symptom": "Substantially incorrect patch; misinterprets problem requirements",
+      "addressable_surface": "prompt:draft | bootstrap"
+    },
+    {
+      "signature": {
+        "cause": "Agent fails to generate any patch; unable to produce valid code",
+        "behavior": "Agent unable to localize defect or generate valid code given problem description",
+        "mechanism": "Problem complexity exceeds agent's single-shot code generation capability; insufficient problem localization"
+      },
+      "support": 1,
+      "instances": [
+        "sympy__sympy-13031"
+      ],
+      "symptom": "Agent unable to generate any valid patch for problem",
+      "addressable_surface": "prompt:draft | failure_recovery | roles"
+    },
+    {
+      "signature": {
+        "cause": "Hidden test fails on minimal verification set (0 regression tests)",
+        "behavior": "Patch applies cleanly and has minor scope, but no regression tests available to validate correctness",
+        "mechanism": "Insufficient verification scope; task configuration lacks baseline tests for comprehensive validation"
+      },
+      "support": 1,
+      "instances": [
+        "pylint-dev__pylint-4661"
+      ],
+      "symptom": "Patch applies but insufficient baseline tests to validate correctness",
+      "addressable_surface": "verification | bootstrap"
+    }
+  ]
+}

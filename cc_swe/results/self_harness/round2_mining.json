@@ -1,0 +1,46 @@
+{
+  "round": 2,
+  "current_harness": "h2",
+  "clusters": [
+    {
+      "signature": {
+        "cause": "Hidden acceptance tests fail; repro test is insufficient",
+        "behavior": "Agent generates patch that passes reproduction test but fails hidden test suite, indicating the reproduction test does not fully capture the required behavior",
+        "mechanism": "Repro test written by write_test role has incomplete coverage or misses critical edge cases; fix addresses only what repro test validates"
+      },
+      "support": 2,
+      "instances": [
+        "0",
+        "14"
+      ],
+      "symptom": "Patch passes local repro (repro_pass=True, regression=1.0) but hidden tests fail (resolved=0)",
+      "addressable_surface": "write_test"
+    },
+    {
+      "signature": {
+        "cause": "Fix introduces unintended side effects in test infrastructure",
+        "behavior": "Agent's fix changes AST representation (constants vs Name nodes), breaking pytest's test discovery for parametrized tests with the affected keywords",
+        "mechanism": "AST node type change (ast.NameConstant vs ast.Name) propagates to test parameter stringification, rendering test IDs unparseable (e.g., test names split across lines)"
+      },
+      "support": 1,
+      "instances": [
+        "9"
+      ],
+      "symptom": "Repro passes (repro_pass=True) but regression tests cannot be found/parsed (regression=0.0, REG_RC=4)",
+      "addressable_surface": "prompt:fix"
+    },
+    {
+      "signature": {
+        "cause": "Agent unable to generate valid candidate patch",
+        "behavior": "Draft role fails to produce any fixable code suggestions; both candidate patches marked invalid with score=0.0",
+        "mechanism": "Problem may exceed agent reasoning capability, require domain knowledge unavailable in context, or fall outside patterns the agent has seen"
+      },
+      "support": 1,
+      "instances": [
+        "20"
+      ],
+      "symptom": "No valid patch generated (best_cand=None, best_score=-1.0)",
+      "addressable_surface": "prompt:draft"
+    }
+  ]
+}
